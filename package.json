@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/cyrilwanner/next-optimized-images/issues"
   },
-  "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme"
+  "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
+  "dependencies": {
+    "file-loader": "^1.1.11",
+    "img-loader": "^2.0.1",
+    "url-loader": "^1.0.1"
+  }
 }
