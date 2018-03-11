@@ -1,0 +1,10 @@
+# os
+.DS_Store
+
+# editor
+.idea
+.vscode
+
+# node
+node_modules
+npm-debug.log*
