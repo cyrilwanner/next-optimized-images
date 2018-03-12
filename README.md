@@ -1,14 +1,14 @@
 # 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE)
 
-Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects.
+Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `gif` and `svg`).
 
 Image sizes can often get reduced between 20-60%, but this is not the only thing `next-optimized-images` does:
 
 * Reduces image size by optimizing images during build
 * Improves loading speed by providing progressive images (for formats that support it)
-* Adds a content hash to the file name so images can get cached on cdn level and in the browser for a long time
+* Adds a content hash to the file name so images can get cached on CDN level and in the browser for a long time
 * Same image urls over multiple builds for long time caching
-* `Jpeg`, `png`, `gif` and `svg` images are supported and enabled by default but can be particularly disabled
+* `jpeg`, `png`, `gif` and `svg` images are supported and enabled by default but can be particularly disabled
 
 ## Table of contents
 
@@ -167,9 +167,39 @@ If you want svg images and icons to be handled but _not_ optimized, you can set 
 
 ## Example
 
+The options specified here are the **default** values.
+
+So if the are good enough for your use-case, you don't have to specify them to have a shorter and cleaner `next.config.js` file.
+
 ```javascript
 // next.config.js
-// todo
+const withPlugins = require('next-plugins');
+const optimizedImages = require('next-optimized-images');
+
+module.exports = withPlugins([
+    [optimizedImages, {
+        // these are the default values so you don't have to provide them if they are good enough for your use-case.
+        // but you can overwrite them here with any valid value you want.
+        inlineImageLimit: 8192,
+        imagesFolder: 'images',
+        imagesName: '[name]-[hash].[ext]',
+        optimizeImagesInDev: false,
+        mozjpeg: {
+            quality: 80,
+        },
+        optipng: {
+            optimizationLevel: 3,
+        },
+        pngquant: false,
+        gifsicle: {
+            interlaced: true,
+            optimizationLevel: 3,
+        },
+        svgo: {
+            // enable/disable svgo plugins here
+        },
+    }],
+]);
 ```
 
 ## See also
