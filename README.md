@@ -1,14 +1,15 @@
 # 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE)
 
-Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `gif` and `svg`).
+Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg` and `gif`).
 
 Image sizes can often get reduced between 20-60%, but this is not the only thing `next-optimized-images` does:
 
 * Reduces image size by optimizing images during build
 * Improves loading speed by providing progressive images (for formats that support it)
+* Inlines small images to save HTTP requests and additional roundtrips
 * Adds a content hash to the file name so images can get cached on CDN level and in the browser for a long time
 * Same image urls over multiple builds for long time caching
-* `jpeg`, `png`, `gif` and `svg` images are supported and enabled by default but can be particularly disabled
+* `jpeg`, `png`, `svg` and `gif` images are supported and enabled by default but can be particularly disabled
 
 ## Table of contents
 
