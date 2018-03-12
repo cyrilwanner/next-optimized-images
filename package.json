@@ -1,7 +1,7 @@
 {
   "name": "next-optimized-images",
   "version": "0.1.0",
-  "description": "#todo",
+  "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

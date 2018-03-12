@@ -1,7 +1,7 @@
 /**
  * Converts possible configuration values for an image optimizer.
  *
- * @param {object|boolean|null} config - configuration for the optimizer
+ * @param {object|boolean} config - configuration for the optimizer
  * @param {object} defaultOptions - default configuration if `config` is undefined (optional)
  * @returns {object|boolean} configuration object or false if this optimizer is disabled
  */
@@ -16,11 +16,11 @@ const getOptimizerConfig = (config, defaultOptions = {}) => {
 /**
  * Build the regex for webpack for all image types which should get handled by this plugin.
  *
- * @param {object|boolean|null} mozjpeg - configuration for mozjpeg or false to disable handling jpg files
- * @param {object|boolean|null} optipng - configuration for optipng or false to disable handling png files if pngquant is also set to false
- * @param {object|boolean|null} pngquant - configuration for pngquant or false to disable handling png files if optipng is also set to false
- * @param {object|boolean|null} gifsicle - configuration for gifsicle or false to disable handling gif files
- * @param {object|boolean|null} svgo - configuration for svgo or false to disable handling svg files
+ * @param {object|boolean} mozjpeg - configuration for mozjpeg or false to disable handling jpg files
+ * @param {object|boolean} optipng - configuration for optipng or false to disable handling png files if pngquant is also set to false
+ * @param {object|boolean} pngquant - configuration for pngquant or false to disable handling png files if optipng is also set to false
+ * @param {object|boolean} gifsicle - configuration for gifsicle or false to disable handling gif files
+ * @param {object|boolean} svgo - configuration for svgo or false to disable handling svg files
  * @returns {RegExp} RegExp matching all files which this plugin should handle
  */
 const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
