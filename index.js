@@ -51,6 +51,7 @@ const withOptimizedImages = ({
   inlineImageLimit = 8192,
   imagesFolder = 'images',
   imagesName = '[name]-[hash].[ext]',
+  optimizeImagesInDev = false,
   mozjpeg,
   optipng,
   pngquant = false,
@@ -66,6 +67,8 @@ const withOptimizedImages = ({
         );
       }
 
+      const { dev } = options;
+
       // build options for url-loader with file-loader as fallback
       const urlLoaderOptions = {
         limit: inlineImageLimit,
@@ -77,6 +80,7 @@ const withOptimizedImages = ({
 
       // build options for img-loader
       const imgLoaderOptions = {
+        enabled: !dev || optimizeImagesInDev,
         mozjpeg: getOptimizerConfig(mozjpeg),
         optipng: getOptimizerConfig(optipng),
         pngquant: getOptimizerConfig(pngquant),
