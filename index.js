@@ -94,14 +94,54 @@ const withOptimizedImages = ({
       // push the loaders to the webpack configuration of next.js
       config.module.rules.push({
         test: getHandledFilesRegex(mozjpeg, optipng, pngquant, gifsicle, svgo),
-        use: [
+        oneOf: [
+          // ?raw: include the image directly, no data uri or external file
           {
-            loader: 'url-loader',
-            options: urlLoaderOptions,
+            resourceQuery: /raw/,
+            use: [
+              {
+                loader: 'raw-loader',
+              },
+              {
+                loader: 'img-loader',
+                options: imgLoaderOptions,
+              },
+            ],
           },
+
+          // ?inline: force inlining an image regardless of the defined limit
           {
-            loader: 'img-loader',
-            options: imgLoaderOptions,
+            resourceQuery: /inline/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: Object.assign(
+                  {},
+                  urlLoaderOptions,
+                  {
+                    limit: undefined,
+                  },
+                ),
+              },
+              {
+                loader: 'img-loader',
+                options: imgLoaderOptions,
+              },
+            ],
+          },
+
+          // default behavior: inline if below the definied limit, external file if above
+          {
+            use: [
+              {
+                loader: 'url-loader',
+                options: urlLoaderOptions,
+              },
+              {
+                loader: 'img-loader',
+                options: imgLoaderOptions,
+              },
+            ],
           },
         ],
       });
