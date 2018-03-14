@@ -61,7 +61,7 @@ module.exports = withOptimizedImages({
 
 ## Usage
 
-You can now import or require your images directly in your react component:
+You can now import or require your images directly in your react components:
 
 ```javascript
 import React from 'react';
@@ -85,6 +85,8 @@ export default () => (
  */
 ```
 
+Please be aware that images only get optimized [in production by default](#optimizeimagesindev) to reduce the build time in your development environment.
+
 If you are using css modules, this package also detects images and optimized them in `url()` values in your css/sass/less files:
 
 ```scss
@@ -101,24 +103,24 @@ If you are using css modules, this package also detects images and optimized the
  */
 ```
 
-If the file is below the [limit for inlining images](#inlineimagelimit), the `require(...)` will return a data uri (`data:image/jpeg;base64,...`).
+If the file is below the [limit for inlining images](#inlineimagelimit), the `require(...)` will return a base64 data-uri (`data:image/jpeg;base64,...`).
 
-If it is above the limit, `next-optimized-images` will copy your image into the static folder of next and the `require(...)` returns the path to your image in this case (`/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
+Otherwise, `next-optimized-images` will copy your image into the static folder of next.js and the `require(...)` returns the path to your image in this case (`/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
 
 You can use both variants directly on an image in the `src` attribute or in your css file inside an `url()` value.
 
 ### Query params
 
-There are cases where you don't want to reference a file but you actually want to include the file directly into your html.
+There are some cases where you don't want to reference a file or get a base64 data-uri but you actually want to include the raw file directly into your html.
 Specially for svgs because you can't style them with css if they are in a `src` attribute on an image.
 
 So there are additional options you can specify as query params when you import the images:
 
 #### ?include
 
-The image will now directly be included in your html without a data uri or a reference to your file.
+The image will now directly be included in your html without a data-uri or a reference to your file.
 
-This is most useful for svgs as described above so you can style them with css.
+As described above, this is useful for svgs so you can style them with css.
 
 ```javascript
 import React from 'react';
@@ -143,7 +145,7 @@ The image will still get optimized, even if it is directly included in your cont
 
 #### ?inline
 
-You can specify a [limit for inlining](#inlineimagelimit) images which will include it as a data uri directly in your content instead of referencing a file if the file size is below that limit.
+You can specify a [limit for inlining](#inlineimagelimit) images which will include it as a data-uri directly in your content instead of referencing a file if the file size is below that limit.
 
 You usually don't want to specify a too high limit but there may be cases where you still want to inline larger images.
 
@@ -165,7 +167,7 @@ export default () => (
  */
 ```
 
-The inlining will only get applied to exactly this import, if you import the image a second time without the `?inline` options, it will then get referenced as a file normally if it is above your limit.
+The inlining will only get applied to exactly this import, so if you import the image a second time without the `?inline` options, it will then get normally referenced as a file if it is above your limit.
 
 ## Configuration
 
@@ -178,7 +180,7 @@ The default options for these optimizers should be enough in most cases, but you
 Type: `number`<br>
 Default: `8192`
 
-Smaller files will get inlined with a data uri by [url-loader](https://www.npmjs.com/package/url-loader).
+Smaller files will get inlined with a data-uri by [url-loader](https://www.npmjs.com/package/url-loader).
 This number defines the maximum file size for images to get inlined.
 If an image is bigger, it will get copied to the static folder of next.
 
