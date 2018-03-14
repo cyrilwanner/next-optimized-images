@@ -95,9 +95,9 @@ const withOptimizedImages = ({
       config.module.rules.push({
         test: getHandledFilesRegex(mozjpeg, optipng, pngquant, gifsicle, svgo),
         oneOf: [
-          // ?raw: include the image directly, no data uri or external file
+          // ?include: include the image directly, no data uri or external file
           {
-            resourceQuery: /raw/,
+            resourceQuery: /include/,
             use: [
               {
                 loader: 'raw-loader',

@@ -10,6 +10,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Adds a content hash to the file name so images can get cached on CDN level and in the browser for a long time
 * Same image urls over multiple builds for long time caching
 * `jpeg`, `png`, `svg` and `gif` images are supported and enabled by default but can be particularly disabled
+* Provides [options](#query-params) to force inlining a single file or include the raw optimized image directly in your html (e.g. for svgs)
 
 ## Table of contents
 
@@ -26,7 +27,8 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 npm install --save next-optimized-images
 ```
 
-## Usage
+Enable the plugin in your Next.js configuration file:
+
 ```javascript
 // next.config.js
 const withPlugins = require('next-plugins');
@@ -42,6 +44,8 @@ module.exports = withPlugins([
 ]);
 ```
 
+See the [configuration](#configuration) section for all available options.
+
 This example uses [next-plugins](https://github.com/cyrilwanner/next-plugins) for a cleaner API when using many plugins, see its readme for a more detailed example. `next-optimized-images` also works with the standard plugin api:
 
 ```javascript
@@ -54,6 +58,114 @@ module.exports = withOptimizedImages({
     // your config for other plugins or the general next.js here..
 });
 ```
+
+## Usage
+
+You can now import or require your images directly in your react component:
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <div>
+    <img src={require('./images/my-image.jpg')} />
+    <img src={require('./images/my-small-image.png')} />
+    <img src={require('./images/my-icon.svg')} />
+  </div>
+);
+
+/**
+ * Results in:
+ *
+ * <div>
+ *   <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ *   <img src="data:image/png;base64,..." />
+ *   <img src="/_next/static/images/my-icon-572812a2b04ed76f93f05bf57563c35d.svg" />
+ * </div>
+ */
+```
+
+If you are using css modules, this package also detects images and optimized them in `url()` values in your css/sass/less files:
+
+```scss
+.Header {
+  background-image: url('./images/my-image.jpg');
+}
+
+/**
+ * Results in:
+ *
+ * .Header {
+ *   background-image: url('/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg');
+ * }
+ */
+```
+
+If the file is below the [limit for inlining images](#inlineimagelimit), the `require(...)` will return a data uri (`data:image/jpeg;base64,...`).
+
+If it is above the limit, `next-optimized-images` will copy your image into the static folder of next and the `require(...)` returns the path to your image in this case (`/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
+
+You can use both variants directly on an image in the `src` attribute or in your css file inside an `url()` value.
+
+### Query params
+
+There are cases where you don't want to reference a file but you actually want to include the file directly into your html.
+Specially for svgs because you can't style them with css if they are in a `src` attribute on an image.
+
+So there are additional options you can specify as query params when you import the images:
+
+#### ?include
+
+The image will now directly be included in your html without a data uri or a reference to your file.
+
+This is most useful for svgs as described above so you can style them with css.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <div dangerouslySetInnerHTML={{__html: require('./images/my-icon.svg?include')}} />
+);
+
+/**
+ * Results in:
+ *
+ * <div>
+ *   <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+ *     <path d="M8 0C3.589 0 0 3.589 0 8s3.589 ..." style="filled-opacity:1" fill-rule="evenodd">
+ *     </path>
+ *   </svg>
+ * </div>
+ */
+```
+
+The image will still get optimized, even if it is directly included in your content (but by [default only in production](#optimizeimagesindev)).
+
+#### ?inline
+
+You can specify a [limit for inlining](#inlineimagelimit) images which will include it as a data uri directly in your content instead of referencing a file if the file size is below that limit.
+
+You usually don't want to specify a too high limit but there may be cases where you still want to inline larger images.
+
+In this case, you don't have to set the global limit to a higher value but you can add an exception for a single image using the `?inline` query options.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <img src={require('./images/my-image.jpg?inline')} />
+);
+
+/**
+ * Results in:
+ *
+ * <img src="data:image/png;base64,..." />
+ *
+ * Even if the image size is above the defined limit.
+ */
+```
+
+The inlining will only get applied to exactly this import, if you import the image a second time without the `?inline` options, it will then get referenced as a file normally if it is above your limit.
 
 ## Configuration
 
