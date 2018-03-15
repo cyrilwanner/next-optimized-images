@@ -10,7 +10,7 @@ const getOptimizerConfig = (config, defaultOptions = {}) => {
     return false;
   }
 
-  return config || defaultOptions;
+  return Object.assign({}, defaultOptions, config || {});
 };
 
 /**
@@ -56,6 +56,7 @@ const withOptimizedImages = ({
   optipng,
   pngquant = false,
   gifsicle,
+  webp,
   svgo,
   ...nextConfig
 } = {}) => {
@@ -130,6 +131,28 @@ const withOptimizedImages = ({
             ],
           },
 
+          // ?webp: convert an image to webp
+          {
+            resourceQuery: /webp/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: Object.assign(
+                  {},
+                  urlLoaderOptions,
+                  {
+                    name: `${imagesName}.webp`,
+                    mimetype: 'image/webp',
+                  },
+                ),
+              },
+              {
+                loader: `webp-loader`,
+                options: getOptimizerConfig(webp),
+              },
+            ],
+          },
+
           // default behavior: inline if below the definied limit, external file if above
           {
             use: [
@@ -151,8 +174,8 @@ const withOptimizedImages = ({
       }
 
       return config;
-    }
-  })
-}
+    },
+  });
+};
 
 module.exports = withOptimizedImages;
