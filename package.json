@@ -28,7 +28,8 @@
     "file-loader": "^1.1.11",
     "img-loader": "^2.0.1",
     "raw-loader": "^0.5.1",
-    "url-loader": "^1.0.1"
+    "url-loader": "^1.0.1",
+    "webp-loader": "^0.4.0"
   },
   "devDependencies": {
     "npm-autoinstaller": "^1.3.1"
