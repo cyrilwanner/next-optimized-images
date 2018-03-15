@@ -309,6 +309,14 @@ If you don't want next-optimized-images to handle svg images and icons (because 
 
 If you want svg images and icons to be handled but _not_ optimized, you can set this value to `null`.
 
+#### webp
+
+Type: `object`<br>
+Default: `{}`
+
+[imagemin-webp](https://github.com/imagemin/imagemin-webp) is used for converting images to webp.
+You can specify the options for it here.
+The default options of `imagemin-webp` are used if you omit this option.
 
 ## Example
 
