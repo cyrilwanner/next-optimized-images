@@ -10,7 +10,7 @@ const getOptimizerConfig = (config, defaultOptions = {}) => {
     return false;
   }
 
-  return config || defaultOptions;
+  return Object.assign({}, defaultOptions, config || {});
 };
 
 /**
@@ -56,7 +56,7 @@ const withOptimizedImages = ({
   optipng,
   pngquant = false,
   gifsicle,
-  webp = {},
+  webp,
   svgo,
   ...nextConfig
 } = {}) => {
@@ -148,7 +148,7 @@ const withOptimizedImages = ({
               },
               {
                 loader: `webp-loader`,
-                options: webp,
+                options: getOptimizerConfig(webp),
               },
             ],
           },
