@@ -31,7 +31,7 @@ Enable the plugin in your Next.js configuration file:
 
 ```javascript
 // next.config.js
-const withPlugins = require('next-plugins');
+const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
 
 module.exports = withPlugins([
@@ -46,7 +46,7 @@ module.exports = withPlugins([
 
 See the [configuration](#configuration) section for all available options.
 
-This example uses [next-plugins](https://github.com/cyrilwanner/next-plugins) for a cleaner API when using many plugins, see its readme for a more detailed example. `next-optimized-images` also works with the standard plugin api:
+This example uses [next-compose-plugins](https://github.com/cyrilwanner/next-compose-plugins) for a cleaner API when using many plugins, see its readme for a more detailed example. `next-optimized-images` also works with the standard plugin api:
 
 ```javascript
 // next.config.js
@@ -288,7 +288,7 @@ So if the are good enough for your use-case, you don't have to specify them to h
 
 ```javascript
 // next.config.js
-const withPlugins = require('next-plugins');
+const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
 
 module.exports = withPlugins([
@@ -320,7 +320,8 @@ module.exports = withPlugins([
 ## See also
 
 * [next-images](https://github.com/arefaslani/next-images) if you just want images and not optimize them
-* [next-plugins](https://github.com/cyrilwanner/next-plugins) for a cleaner plugins API when you have many plugins in your `next.config.js` file
+* [next-compose-plugins](https://github.com/cyrilwanner/next-compose-plugins) for a cleaner plugins API when you have many plugins in your `next.config.js` file
+* [next-plugins](https://github.com/zeit/next-plugins) for a list of official and community made plugins
 
 ## License
 
