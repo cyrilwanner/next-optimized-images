@@ -142,6 +142,7 @@ const withOptimizedImages = ({
                   urlLoaderOptions,
                   {
                     name: `${imagesName}.webp`,
+                    mimetype: 'image/webp',
                   },
                 ),
               },
