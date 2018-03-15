@@ -11,6 +11,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Same image urls over multiple builds for long time caching
 * `jpeg`, `png`, `svg` and `gif` images are supported and enabled by default but can be particularly disabled
 * Provides [options](#query-params) to force inlining a single file or include the raw optimized image directly in your html (e.g. for svgs)
+* Converts images to [webp if wanted](#webp) for an even smaller size
 
 ## Table of contents
 
@@ -35,11 +36,11 @@ const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
 
 module.exports = withPlugins([
-    [optimizedImages, {
-        /* config for next-optimized-images */
-    }],
+  [optimizedImages, {
+    /* config for next-optimized-images */
+  }],
 
-    // your other plugins here
+  // your other plugins here
 
 ]);
 ```
@@ -53,9 +54,9 @@ This example uses [next-compose-plugins](https://github.com/cyrilwanner/next-com
 const withOptimizedImages = require('next-optimized-images');
 
 module.exports = withOptimizedImages({
-    /* config for next-optimized-images */
+  /* config for next-optimized-images */
 
-    // your config for other plugins or the general next.js here..
+  // your config for other plugins or the general next.js here..
 });
 ```
 
@@ -142,6 +143,35 @@ export default () => (
 ```
 
 The image will still get optimized, even if it is directly included in your content (but by [default only in production](#optimizeimagesindev)).
+
+#### ?webp
+
+WebP is an even better and smaller image format but it is still not that common yet and developers often only receive jpeg/png images.
+
+If this `?webp` query parameter is specified, `next-optimized-images` automatically converts a jpeg/png image to the new WebP format.
+
+For browsers that don't yet support WebP, you can also provide a fallback using the `<picture>` tag:
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <picture>
+    <source srcSet={require('./images/my-image.jpg?webp')} type="image/webp" />
+    <source srcSet={require('./images/my-image.jpg')} type="image/jpeg" />
+    <img src={require('./images/my-image.jpg')} />
+  </picture>
+);
+
+/**
+ * Results in:
+ * <picture>
+ *   <source srcset="/_next/static/images/my-image-d6816ecc28862cf6f725b29b1d6aab5e.jpg.webp" type="image/webp" />
+ *   <source srcset="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" type="image/jpeg" />
+ *   <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ * </picture>
+ */
+```
 
 #### ?inline
 
