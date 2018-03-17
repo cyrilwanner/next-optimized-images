@@ -21,10 +21,12 @@ describe('next-optimized-images', () => {
     test('handles all images by default', () => {
       const config = getNextConfig();
 
-      expect(config.module.rules).toHaveLength(1);
+      expect(config.module.rules).toHaveLength(2);
 
       const rule = config.module.rules[0];
+      const webpRule = config.module.rules[1];
       const imgLoaderOptions = rule.oneOf[rule.oneOf.length - 1].use[1].options;
+      const webpLoaderOptions = webpRule.oneOf[webpRule.oneOf.length - 1].use[1].options;
 
       expect(rule.test.test('.jpg')).toEqual(true);
       expect(rule.test.test('.jpeg')).toEqual(true);
@@ -36,11 +38,16 @@ describe('next-optimized-images', () => {
       expect(rule.test.test('.PNG')).toEqual(true);
       expect(rule.test.test('.GIF')).toEqual(true);
       expect(rule.test.test('.SVG')).toEqual(true);
+      expect(rule.test.test('.webp')).toEqual(false);
+      expect(rule.test.test('.WEBP')).toEqual(false);
+      expect(webpRule.test.test('.webp')).toEqual(true);
+      expect(webpRule.test.test('.WEBP')).toEqual(true);
       expect(imgLoaderOptions.mozjpeg).not.toBeFalsy();
       expect(imgLoaderOptions.optipng).not.toBeFalsy();
       expect(imgLoaderOptions.pngquant).toEqual(false);
       expect(imgLoaderOptions.gifsicle).not.toBeFalsy();
       expect(imgLoaderOptions.svgo).not.toBeFalsy();
+      expect(webpLoaderOptions).not.toBeFalsy();
     });
 
     test('jpg can get disabled', () => {
@@ -201,6 +208,24 @@ describe('next-optimized-images', () => {
       expect(imgLoaderOptions.gifsicle).not.toBeFalsy();
       expect(imgLoaderOptions.svgo).not.toBeFalsy();
     });
+
+    test('webp can get disabled', () => {
+      const config = getNextConfig({ webp: false });
+      const rule = config.module.rules[0];
+
+      expect(config.module.rules).toHaveLength(1);
+      expect(rule.test.test('.webp')).toEqual(false);
+      expect(rule.test.test('.WEBP')).toEqual(false);
+    });
+
+    test('webp optimization can get disabled', () => {
+      const config = getNextConfig({ webp: null });
+      const rule = config.module.rules[1];
+
+      expect(rule.oneOf[rule.oneOf.length - 1].use).toHaveLength(1);
+      expect(rule.test.test('.webp')).toEqual(true);
+      expect(rule.test.test('.WEBP')).toEqual(true);
+    });
   });
 
   /**
@@ -280,7 +305,7 @@ describe('next-optimized-images', () => {
     test('propagate and merge configuration', () => {
       const config = getNextConfig({
         webpack: (webpackConfig, webpackOptions) => {
-          expect(webpackConfig.module.rules).toHaveLength(1);
+          expect(webpackConfig.module.rules).toHaveLength(2);
           expect(webpackOptions.dev).toEqual(false);
           expect(webpackOptions.foo).toEqual('bar');
 
@@ -290,7 +315,7 @@ describe('next-optimized-images', () => {
         },
       }, { foo: 'bar' });
 
-      expect(config.module.rules).toHaveLength(1);
+      expect(config.module.rules).toHaveLength(2);
       expect(config.changed).toEqual(true);
     });
 
