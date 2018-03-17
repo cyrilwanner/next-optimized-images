@@ -284,10 +284,9 @@ describe('next-optimized-images', () => {
           expect(webpackOptions.dev).toEqual(false);
           expect(webpackOptions.foo).toEqual('bar');
 
-          return {
+          return Object.assign({
             changed: true,
-            ...webpackConfig,
-          };
+          }, webpackConfig);
         },
       }, { foo: 'bar' });
 
