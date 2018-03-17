@@ -3,8 +3,11 @@
   "version": "1.2.0",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",

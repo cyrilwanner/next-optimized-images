@@ -329,6 +329,12 @@ describe('next-optimized-images', () => {
     });
   });
 
+  test('only support next.js >= 5', () => {
+    expect(() => {
+      getNextConfig({}, { defaultLoaders: false });
+    }).toThrow();
+  });
+
   /**
    * support query params
    */
