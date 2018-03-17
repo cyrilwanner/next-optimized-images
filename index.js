@@ -51,25 +51,34 @@ const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
  * @returns {array} loaders for resource queries
  */
 const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, urlLoaderOptions) => {
+  const addImgLoader = (loaders) => {
+    if (imgLoaderOptions === false) {
+      return loaders;
+    }
+
+    return loaders.concat([
+      {
+        loader: imgLoaderName,
+        options: imgLoaderOptions,
+      },
+    ]);
+  };
+
   return [
     // ?include: include the image directly, no data uri or external file
     {
       resourceQuery: /include/,
-      use: [
+      use: addImgLoader([
         {
           loader: 'raw-loader',
         },
-        {
-          loader: imgLoaderName,
-          options: imgLoaderOptions,
-        },
-      ],
+      ]),
     },
 
     // ?inline: force inlining an image regardless of the defined limit
     {
       resourceQuery: /inline/,
-      use: [
+      use: addImgLoader([
         {
           loader: 'url-loader',
           options: Object.assign(
@@ -80,11 +89,7 @@ const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, urlLoaderOptio
             },
           ),
         },
-        {
-          loader: imgLoaderName,
-          options: imgLoaderOptions,
-        },
-      ],
+      ]),
     },
   ];
 };
@@ -173,7 +178,7 @@ const withOptimizedImages = (nextConfig) => {
               },
               {
                 loader: 'webp-loader',
-                options: webpLoaderOptions,
+                options: webpLoaderOptions || {},
               },
             ],
           },
@@ -196,6 +201,20 @@ const withOptimizedImages = (nextConfig) => {
 
       // push the loaders for webp to the webpack configuration of next.js
       if (webp !== false) {
+        const webpLoaders = [
+          {
+            loader: 'url-loader',
+            options: urlLoaderOptions,
+          },
+        ];
+
+        if (webp !== null) {
+          webpLoaders.push({
+            loader: 'webp-loader',
+            options: webpLoaderOptions,
+          });
+        }
+
         config.module.rules.push({
           test: /\.webp$/i,
           oneOf: [
@@ -205,16 +224,7 @@ const withOptimizedImages = (nextConfig) => {
 
             // default behavior: inline if below the definied limit, external file if above
             {
-              use: [
-                {
-                  loader: 'url-loader',
-                  options: urlLoaderOptions,
-                },
-                {
-                  loader: 'webp-loader',
-                  options: webpLoaderOptions,
-                },
-              ],
+              use: webpLoaders,
             },
           ],
         });
