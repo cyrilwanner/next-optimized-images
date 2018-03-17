@@ -49,6 +49,10 @@ const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
  */
 const withOptimizedImages = (nextConfig) => {
   // extract config here without object rest spread as long as node 6 has to be supported
+  if (!nextConfig) {
+    nextConfig = {};
+  }
+
   const {
     inlineImageLimit = 8192,
     imagesFolder = 'images',
