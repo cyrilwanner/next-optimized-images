@@ -43,6 +43,53 @@ const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
 };
 
 /**
+ * Build loaders for resource queries.
+ *
+ * @param {string} imgLoaderName - name of the loader to use for images
+ * @param {object} imgLoaderOptions - options to pass to the image loader
+ * @param {object} urlLoaderOptions - options to pass to url-loader
+ * @returns {array} loaders for resource queries
+ */
+const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, urlLoaderOptions) => {
+  return [
+    // ?include: include the image directly, no data uri or external file
+    {
+      resourceQuery: /include/,
+      use: [
+        {
+          loader: 'raw-loader',
+        },
+        {
+          loader: imgLoaderName,
+          options: imgLoaderOptions,
+        },
+      ],
+    },
+
+    // ?inline: force inlining an image regardless of the defined limit
+    {
+      resourceQuery: /inline/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: Object.assign(
+            {},
+            urlLoaderOptions,
+            {
+              limit: undefined,
+            },
+          ),
+        },
+        {
+          loader: imgLoaderName,
+          options: imgLoaderOptions,
+        },
+      ],
+    },
+  ];
+};
+
+/**
  * Configure webpack and next.js to handle and optimize images with this plugin.
  *
  * @param {object} param0 - configuration for next-optimized-plugins, see the readme for possible values
@@ -98,44 +145,16 @@ const withOptimizedImages = (nextConfig) => {
         svgo: getOptimizerConfig(svgo),
       };
 
-      // push the loaders to the webpack configuration of next.js
+      // build options for webp-loader
+      const webpLoaderOptions = getOptimizerConfig(webp);
+
+      // push the loaders for jpg, png, svg and gif to the webpack configuration of next.js
       config.module.rules.push({
         test: getHandledFilesRegex(mozjpeg, optipng, pngquant, gifsicle, svgo),
         oneOf: [
           // ?include: include the image directly, no data uri or external file
-          {
-            resourceQuery: /include/,
-            use: [
-              {
-                loader: 'raw-loader',
-              },
-              {
-                loader: 'img-loader',
-                options: imgLoaderOptions,
-              },
-            ],
-          },
-
           // ?inline: force inlining an image regardless of the defined limit
-          {
-            resourceQuery: /inline/,
-            use: [
-              {
-                loader: 'url-loader',
-                options: Object.assign(
-                  {},
-                  urlLoaderOptions,
-                  {
-                    limit: undefined,
-                  },
-                ),
-              },
-              {
-                loader: 'img-loader',
-                options: imgLoaderOptions,
-              },
-            ],
-          },
+          ...getResourceQueryLoaders('img-loader', imgLoaderOptions, urlLoaderOptions),
 
           // ?webp: convert an image to webp
           {
@@ -153,8 +172,8 @@ const withOptimizedImages = (nextConfig) => {
                 ),
               },
               {
-                loader: `webp-loader`,
-                options: getOptimizerConfig(webp),
+                loader: 'webp-loader',
+                options: webpLoaderOptions,
               },
             ],
           },
@@ -174,6 +193,32 @@ const withOptimizedImages = (nextConfig) => {
           },
         ],
       });
+
+      // push the loaders for webp to the webpack configuration of next.js
+      if (webp !== false) {
+        config.module.rules.push({
+          test: /\.webp$/i,
+          oneOf: [
+            // ?include: include the image directly, no data uri or external file
+            // ?inline: force inlining an image regardless of the defined limit
+            ...getResourceQueryLoaders('webp-loader', webpLoaderOptions, urlLoaderOptions),
+
+            // default behavior: inline if below the definied limit, external file if above
+            {
+              use: [
+                {
+                  loader: 'url-loader',
+                  options: urlLoaderOptions,
+                },
+                {
+                  loader: 'webp-loader',
+                  options: webpLoaderOptions,
+                },
+              ],
+            },
+          ],
+        });
+      }
 
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options);
