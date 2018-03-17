@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "9"
+  - "8"
+  - "6"
+install:
+  - npm install
+  - npm install -g codecov
+script:
+  - npm test
+  - codecov

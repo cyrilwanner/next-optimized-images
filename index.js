@@ -47,19 +47,25 @@ const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
  *
  * @param {object} param0 - configuration for next-optimized-plugins, see the readme for possible values
  */
-const withOptimizedImages = ({
-  inlineImageLimit = 8192,
-  imagesFolder = 'images',
-  imagesName = '[name]-[hash].[ext]',
-  optimizeImagesInDev = false,
-  mozjpeg,
-  optipng,
-  pngquant = false,
-  gifsicle,
-  webp,
-  svgo,
-  ...nextConfig
-} = {}) => {
+const withOptimizedImages = (nextConfig) => {
+  // extract config here without object rest spread as long as node 6 has to be supported
+  if (!nextConfig) {
+    nextConfig = {};
+  }
+
+  const {
+    inlineImageLimit = 8192,
+    imagesFolder = 'images',
+    imagesName = '[name]-[hash].[ext]',
+    optimizeImagesInDev = false,
+    mozjpeg,
+    optipng,
+    pngquant = false,
+    gifsicle,
+    webp,
+    svgo
+  } = nextConfig;
+
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (!options.defaultLoaders) {
