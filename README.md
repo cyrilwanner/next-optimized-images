@@ -1,4 +1,4 @@
-# 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE)
+# 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![dependencies](https://david-dm.org/cyrilwanner/next-optimized-images/status.svg)](https://david-dm.org/cyrilwanner/next-optimized-images)
 
 Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg` and `gif`).
 
