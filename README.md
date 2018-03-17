@@ -1,5 +1,7 @@
 # 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cyrilwanner/next-optimized-images.svg)](https://greenkeeper.io/)
+
 Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg` and `gif`).
 
 Image sizes can often get reduced between 20-60%, but this is not the only thing `next-optimized-images` does:
