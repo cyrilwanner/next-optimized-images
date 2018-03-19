@@ -1,6 +1,6 @@
 # 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![dependencies](https://david-dm.org/cyrilwanner/next-optimized-images/status.svg)](https://david-dm.org/cyrilwanner/next-optimized-images)
 
-Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg` and `gif`).
+Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg`, `webp` and `gif`).
 
 Image sizes can often get reduced between 20-60%, but this is not the only thing `next-optimized-images` does:
 
@@ -9,9 +9,9 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Inlines small images to save HTTP requests and additional roundtrips
 * Adds a content hash to the file name so images can get cached on CDN level and in the browser for a long time
 * Same image urls over multiple builds for long time caching
-* `jpeg`, `png`, `svg` and `gif` images are supported and enabled by default but can be particularly disabled
+* `jpeg`, `png`, `svg`, `webp` and `gif` images are supported and enabled by default but can be particularly disabled
 * Provides [options](#query-params) to force inlining a single file or include the raw optimized image directly in your html (e.g. for svgs)
-* Converts images to [webp if wanted](#webp) for an even smaller size
+* Converts jpeg/png images to [`webp` if wanted](#webp) for an even smaller size
 
 ## Table of contents
 
@@ -314,9 +314,13 @@ If you want svg images and icons to be handled but _not_ optimized, you can set 
 Type: `object`<br>
 Default: `{}`
 
-[imagemin-webp](https://github.com/imagemin/imagemin-webp) is used for converting images to webp.
+[imagemin-webp](https://github.com/imagemin/imagemin-webp) is used for optimizing webp images and converting other formats to webp.
 You can specify the options for it here.
 The default options of `imagemin-webp` are used if you omit this option.
+
+If you don't want next-optimized-images to handle webp images (because you have another one), you can set this value to `false`.
+
+If you want webp images to be handled but _not_ optimized, you can set this value to `null`.
 
 ## Example
 
@@ -350,6 +354,10 @@ module.exports = withPlugins([
         },
         svgo: {
             // enable/disable svgo plugins here
+        },
+        webp: {
+            preset: 'default',
+            quality: 75,
         },
     }],
 ]);
