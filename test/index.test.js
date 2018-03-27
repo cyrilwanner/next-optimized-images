@@ -246,6 +246,22 @@ describe('next-optimized-images', () => {
       expect(setLimitUrlLoader.options.limit).toEqual(1234);
     });
 
+    test('imagesPublicPath can get set', () => {
+      const defaultPublicPath = getNextConfig();
+      const defaultPublicPathRule = defaultPublicPath.module.rules[0];
+      const defaultPublicPathUrlLoader = defaultPublicPathRule.oneOf[defaultPublicPathRule.oneOf.length - 1].use[0];
+
+      expect(defaultPublicPathUrlLoader.options.publicPath).toEqual('/_next/static/images/');
+      expect(defaultPublicPathUrlLoader.options.outputPath).toEqual('static/images/');
+
+      const setPublicPath = getNextConfig({ imagesPublicPath: 'https://storage.service.com/bucket/foo/bar' });
+      const setPublicPathRule = setPublicPath.module.rules[0];
+      const setPublicPathUrlLoader = setPublicPathRule.oneOf[setPublicPathRule.oneOf.length - 1].use[0];
+
+      expect(setPublicPathUrlLoader.options.publicPath).toEqual('https://storage.service.com/bucket/foo/bar');
+      expect(setPublicPathUrlLoader.options.outputPath).toEqual('static/images/');
+    });
+
     test('imagesFolder can get set', () => {
       const defaultFolder = getNextConfig();
       const defaultFolderRule = defaultFolder.module.rules[0];
