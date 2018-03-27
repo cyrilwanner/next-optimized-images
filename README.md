@@ -223,6 +223,14 @@ Default: `'images'`
 
 Folder name inside `/static/` in which the images will get copied to during build.
 
+#### imagesPublicPath
+
+Type: `string`<br>
+Default: ``/_next/static/${imagesFolder}/``
+
+The public path that should be used for image urls. This can be used to serve
+the optimized image from a cloud storage service like S3.
+
 #### imagesName
 
 Type: `string`<br>
