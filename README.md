@@ -199,6 +199,23 @@ export default () => (
 
 The inlining will only get applied to exactly this import, so if you import the image a second time without the `?inline` options, it will then get normally referenced as a file if it is above your limit.
 
+#### ?sprite
+
+If you need to style or animate your SVGs [?include](#?include) might be the wrong option, because that ends up in a lot of DOM elements, especially when using the SVG in list-items etc.
+In that case you can use `?sprite` which uses [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) to render and inject an SVG sprite in the page automatically.
+You just refer to images via `<svg><use xlink:href="#id"></use></svg>` 
+
+```javascript
+import React from 'react';
+import icon from './icons/icon.svg?sprite';
+
+export default () => (
+  <svg viewBox={icon.viewBox}>
+    <use xlink:href={icon.id} />
+  </svg>
+);
+```
+
 ## Configuration
 
 This plugin uses [img-loader](https://www.npmjs.com/package/img-loader) under the hood which is based on [mozjpeg](https://github.com/imagemin/imagemin-mozjpeg), [optipng](https://github.com/imagemin/imagemin-optipng), [gifsicle](https://github.com/imagemin/imagemin-gifsicle) and [svgo](https://github.com/imagemin/imagemin-svgo).

@@ -116,7 +116,8 @@ const withOptimizedImages = (nextConfig) => {
     pngquant = false,
     gifsicle,
     webp,
-    svgo
+    svgo,
+    svgSpriteLoader,
   } = nextConfig;
 
   return Object.assign({}, nextConfig, {
@@ -158,6 +159,16 @@ const withOptimizedImages = (nextConfig) => {
       config.module.rules.push({
         test: getHandledFilesRegex(mozjpeg, optipng, pngquant, gifsicle, svgo),
         oneOf: [
+          // ?sprite: add icon to sprite
+          {
+            resourceQuery: /sprite/,
+            use: [
+              {
+                loader: 'svg-sprite-loader',
+                options: getOptimizerConfig(svgSpriteLoader),
+              },
+            ],
+          },
           // ?include: include the image directly, no data uri or external file
           // ?inline: force inlining an image regardless of the defined limit
           ...getResourceQueryLoaders('img-loader', imgLoaderOptions, urlLoaderOptions),
