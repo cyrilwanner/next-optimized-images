@@ -231,6 +231,13 @@ Default: ``` `/_next/static/${imagesFolder}/` ```
 The public path that should be used for image urls. This can be used to serve
 the optimized image from a cloud storage service like S3.
 
+#### imagesOutputPath
+
+Type: `string`<br>
+Default: ``` `static/${imagesFolder}/` ```
+
+The output path that should be used for images. This can be used to have a custom output folder.
+
 #### imagesName
 
 Type: `string`<br>
