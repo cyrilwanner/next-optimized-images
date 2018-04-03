@@ -108,6 +108,7 @@ const withOptimizedImages = (nextConfig) => {
   const {
     inlineImageLimit = 8192,
     imagesPublicPath,
+    imagesOutputPath,
     imagesFolder = 'images',
     imagesName = '[name]-[hash].[ext]',
     optimizeImagesInDev = false,
@@ -135,7 +136,7 @@ const withOptimizedImages = (nextConfig) => {
         limit: inlineImageLimit,
         fallback: 'file-loader',
         publicPath: imagesPublicPath || `/_next/static/${imagesFolder}/`,
-        outputPath: `static/${imagesFolder}/`,
+        outputPath: imagesOutputPath || `static/${imagesFolder}/`,
         name: imagesName,
       };
 
