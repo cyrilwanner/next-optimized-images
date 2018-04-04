@@ -16,8 +16,6 @@ module.exports = ({ symbol, config, context, loaderContext }) => {
     sprite.add(symbol);
 
     const SvgSpriteIcon = function SvgSpriteIcon(props) {
-
-      console.log('symbollllll', symbol);
       return React.createElement(
         'svg',
         Object.assign({
