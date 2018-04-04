@@ -203,16 +203,34 @@ The inlining will only get applied to exactly this import, so if you import the 
 
 If you need to style or animate your SVGs [?include](#?include) might be the wrong option, because that ends up in a lot of DOM elements, especially when using the SVG in list-items etc.
 In that case, you can use `?sprite` which uses [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) to render and inject an SVG sprite in the page automatically.
-You just refer to images via `<svg><use xlink:href="#id"></use></svg>`
+
+```javascript
+import React from 'react';
+import MyIcon from './icons/my-icon.svg?sprite';
+
+export default () => (
+  <div>
+    my page..
+    <MyIcon />
+  </div>
+);
+```
+
+All props passed to the imported sprite will get applied to the `<svg>` element, so you can add a class normally with `<MyIcon className="icon-class" />`.
+
+The `svg-sprite-loader` object also gets exposed if you want to build your own component:
 
 ```javascript
 import React from 'react';
 import icon from './icons/icon.svg?sprite';
 
 export default () => (
-  <svg viewBox={icon.viewBox}>
-    <use xlink:href={icon.id} />
-  </svg>
+  <div>
+    my page..
+    <svg viewBox={icon.viewBox}>
+      <use xlinkHref={`#${icon.id}`} />
+    </svg>
+  </div>
 );
 ```
 
@@ -226,9 +244,7 @@ import sprite from 'svg-sprite-loader/runtime/sprite.build';
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     const pageProps = renderPage();
-
-    const spriteContent = sprite.stringify(); // stringify all sprites used in the current page
-    sprite.destroy(); // cleanup global sprites after the page is rendered
+    const spriteContent = sprite.stringify();
 
     return {
       spriteContent,
@@ -375,6 +391,19 @@ The default options of `svgo` are used if you omit this option.
 If you don't want next-optimized-images to handle svg images and icons (because you have another one), you can set this value to `false`.
 
 If you want svg images and icons to be handled but _not_ optimized, you can set this value to `null`.
+
+#### svgSpriteLoader
+
+Type: `object`<br>
+Default:
+```javascript
+{
+    runtimeGenerator: require.resolve(path.resolve('node_modules', 'next-optimized-images', 'svg-runtime-generator.js')),
+}
+```
+
+When using the [svg sprite option](#sprite), [`svg-sprite-loader`](https://github.com/kisenka/svg-sprite-loader) gets used internally.
+You can overwrite the configuration passed to this loader here.
 
 #### webp
 
