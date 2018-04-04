@@ -113,7 +113,7 @@ You can use both variants directly on an image in the `src` attribute or in your
 ### Query params
 
 There are some cases where you don't want to reference a file or get a base64 data-uri but you actually want to include the raw file directly into your html.
-Specially for svgs because you can't style them with css if they are in a `src` attribute on an image.
+Especially for svgs because you can't style them with css if they are in an `src` attribute on an image.
 
 So there are additional options you can specify as query params when you import the images:
 
@@ -202,8 +202,8 @@ The inlining will only get applied to exactly this import, so if you import the 
 #### ?sprite
 
 If you need to style or animate your SVGs [?include](#?include) might be the wrong option, because that ends up in a lot of DOM elements, especially when using the SVG in list-items etc.
-In that case you can use `?sprite` which uses [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) to render and inject an SVG sprite in the page automatically.
-You just refer to images via `<svg><use xlink:href="#id"></use></svg>` 
+In that case, you can use `?sprite` which uses [svg-sprite-loader](https://github.com/kisenka/svg-sprite-loader) to render and inject an SVG sprite in the page automatically.
+You just refer to images via `<svg><use xlink:href="#id"></use></svg>`
 
 ```javascript
 import React from 'react';
@@ -214,6 +214,41 @@ export default () => (
     <use xlink:href={icon.id} />
   </svg>
 );
+```
+
+To also make this work for server-side rendering, you need to add these changes to your `_document.jsx` file (read [here](https://github.com/zeit/next.js#custom-document) if you don't have this file yet):
+
+```javascript
+// ./pages/_document.js
+import Document, { Head, Main, NextScript } from 'next/document';
+import sprite from 'svg-sprite-loader/runtime/sprite.build';
+
+export default class MyDocument extends Document {
+  static getInitialProps({ renderPage }) {
+    const pageProps = renderPage();
+
+    const spriteContent = sprite.stringify(); // stringify all sprites used in the current page
+    sprite.destroy(); // cleanup global sprites after the page is rendered
+
+    return {
+      spriteContent,
+      ...pageProps,
+    };
+  }
+
+  render() {
+    return (
+      <html>
+        <Head>{/* your head if needed */}</Head>
+        <body>
+          <div dangerouslySetInnerHTML={{ __html: this.props.spriteContent }} />
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    );
+  }
+}
 ```
 
 ## Configuration
@@ -260,7 +295,7 @@ The output path that should be used for images. This can be used to have a custo
 Type: `string`<br>
 Default: `'[name]-[hash].[ext]'`
 
-Filename of the optimized images.
+The filename of the optimized images.
 Make sure you keep the `[hash]` part so they receive a new filename if the content changes.
 
 #### optimizeImagesInDev
@@ -358,7 +393,7 @@ If you want webp images to be handled but _not_ optimized, you can set this valu
 
 The options specified here are the **default** values.
 
-So if the are good enough for your use-case, you don't have to specify them to have a shorter and cleaner `next.config.js` file.
+So if they are good enough for your use-case, you don't have to specify them to have a shorter and cleaner `next.config.js` file.
 
 ```javascript
 // next.config.js
