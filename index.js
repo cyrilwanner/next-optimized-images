@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  * Converts possible configuration values for an image optimizer.
  *
@@ -192,7 +194,9 @@ const withOptimizedImages = (nextConfig) => {
             use: [
               {
                 loader: 'svg-sprite-loader',
-                options: getOptimizerConfig(svgSpriteLoader),
+                options: getOptimizerConfig(svgSpriteLoader, {
+                  runtimeGenerator: require.resolve(path.resolve('node_modules', 'next-optimized-images', 'svg-runtime-generator.js')),
+                }),
               },
             ].concat(imgLoaderOptions.svgo !== false ? [
               {

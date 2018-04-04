@@ -4,7 +4,8 @@
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "svg-runtime-generator.js"
   ],
   "scripts": {
     "test": "jest --coverage"
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "jest": "^22.4.2",
-    "npm-autoinstaller": "^1.3.1"
+    "npm-autoinstaller": "^1.3.1",
+    "webpack": "^4.4.1"
   }
 }
