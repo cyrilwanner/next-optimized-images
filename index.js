@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  * Converts possible configuration values for an image optimizer.
  *
@@ -160,16 +162,6 @@ const withOptimizedImages = (nextConfig) => {
       config.module.rules.push({
         test: getHandledFilesRegex(mozjpeg, optipng, pngquant, gifsicle, svgo),
         oneOf: [
-          // ?sprite: add icon to sprite
-          {
-            resourceQuery: /sprite/,
-            use: [
-              {
-                loader: 'svg-sprite-loader',
-                options: getOptimizerConfig(svgSpriteLoader),
-              },
-            ],
-          },
           // ?include: include the image directly, no data uri or external file
           // ?inline: force inlining an image regardless of the defined limit
           ...getResourceQueryLoaders('img-loader', imgLoaderOptions, urlLoaderOptions),
@@ -194,6 +186,24 @@ const withOptimizedImages = (nextConfig) => {
                 options: webpLoaderOptions || {},
               },
             ],
+          },
+
+          // ?sprite: add icon to sprite
+          {
+            resourceQuery: /sprite/,
+            use: [
+              {
+                loader: 'svg-sprite-loader',
+                options: getOptimizerConfig(svgSpriteLoader, {
+                  runtimeGenerator: require.resolve(path.resolve(__dirname, 'svg-runtime-generator.js')),
+                }),
+              },
+            ].concat(imgLoaderOptions.svgo !== false ? [
+              {
+                loader: 'img-loader',
+                options: imgLoaderOptions,
+              }
+            ] : []),
           },
 
           // default behavior: inline if below the definied limit, external file if above
