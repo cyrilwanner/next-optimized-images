@@ -12,6 +12,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * `jpeg`, `png`, `svg`, `webp` and `gif` images are supported and enabled by default but can be particularly disabled
 * Provides [options](#query-params) to force inlining a single file or include the raw optimized image directly in your html (e.g. for svgs)
 * Converts jpeg/png images to [`webp` if wanted](#webp) for an even smaller size
+* Provides the possibility to use [`svg sprites` if wanted](#sprite) for a better performance when using the same icons multiple times (e.g. in a list)
 
 ## Table of contents
 
