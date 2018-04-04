@@ -195,7 +195,7 @@ const withOptimizedImages = (nextConfig) => {
               {
                 loader: 'svg-sprite-loader',
                 options: getOptimizerConfig(svgSpriteLoader, {
-                  runtimeGenerator: require.resolve(path.resolve('node_modules', 'next-optimized-images', 'svg-runtime-generator.js')),
+                  runtimeGenerator: require.resolve(path.resolve(__dirname, 'svg-runtime-generator.js')),
                 }),
               },
             ].concat(imgLoaderOptions.svgo !== false ? [
