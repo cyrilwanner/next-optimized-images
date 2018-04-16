@@ -131,14 +131,14 @@ const withOptimizedImages = (nextConfig) => {
         );
       }
 
-      const { dev } = options;
+      const { dev, isServer } = options;
 
       // build options for url-loader with file-loader as fallback
       const urlLoaderOptions = {
         limit: inlineImageLimit,
         fallback: 'file-loader',
         publicPath: imagesPublicPath || `/_next/static/${imagesFolder}/`,
-        outputPath: imagesOutputPath || `static/${imagesFolder}/`,
+        outputPath: imagesOutputPath || `${isServer ? '../' : ''}static/${imagesFolder}/`,
         name: imagesName,
       };
 
