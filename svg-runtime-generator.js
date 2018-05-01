@@ -25,8 +25,8 @@ module.exports = ({ symbol, config, context, loaderContext }) => {
           'use',
           {
             xlinkHref: '#' + symbol.id,
-          },
-        ),
+          }
+        )
       );
     };
 
