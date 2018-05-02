@@ -31,7 +31,7 @@
   "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
   "dependencies": {
     "file-loader": "^1.1.11",
-    "img-loader": "^2.0.1",
+    "img-loader": "^3.0.0",
     "raw-loader": "^0.5.1",
     "svg-sprite-loader": "^3.7.3",
     "url-loader": "^1.0.1",
