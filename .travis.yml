@@ -4,7 +4,8 @@ node_js:
   - 8
   - 6
 before_install:
-  - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest'
+  - '[[ $(node -v) =~ ^v6.*$ ]] && npm install -g npm@5'
+  - '[[ $(node -v) =~ ^v7.*$ ]] || [[ $(node -v) =~ ^v8.*$ ]] && npm install -g npm@latest'
   - npm install -g greenkeeper-lockfile
 install:
   - npm install
