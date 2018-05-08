@@ -49,10 +49,11 @@ const getHandledFilesRegex = (mozjpeg, optipng, pngquant, gifsicle, svgo) => {
  *
  * @param {string} imgLoaderName - name of the loader to use for images
  * @param {object} imgLoaderOptions - options to pass to the image loader
+ * @param {object} fileLoaderOptions - options to pass to the file-loader
  * @param {object} urlLoaderOptions - options to pass to url-loader
  * @returns {array} loaders for resource queries
  */
-const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, urlLoaderOptions) => {
+const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, fileLoaderOptions, urlLoaderOptions) => {
   const addImgLoader = (loaders) => {
     if (imgLoaderOptions === false) {
       return loaders;
@@ -92,6 +93,39 @@ const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, urlLoaderOptio
           ),
         },
       ]),
+    },
+
+    // ?url&original: force a file url/reference, never use inlining
+    {
+      resourceQuery: /(url.*original|original.*url)/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: fileLoaderOptions,
+        },
+      ],
+    },
+
+    // ?url: force a file url/reference, never use inlining
+    {
+      resourceQuery: /url/,
+      use: addImgLoader([
+        {
+          loader: 'file-loader',
+          options: fileLoaderOptions,
+        },
+      ]),
+    },
+
+    // ?original: use the original image and don't optimize it
+    {
+      resourceQuery: /original/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: urlLoaderOptions,
+        }
+      ],
     },
   ];
 };
@@ -133,14 +167,18 @@ const withOptimizedImages = (nextConfig) => {
 
       const { dev, isServer } = options;
 
-      // build options for url-loader with file-loader as fallback
-      const urlLoaderOptions = {
-        limit: inlineImageLimit,
-        fallback: 'file-loader',
+      // build options for file-loader
+      const fileLoaderOptions = {
         publicPath: imagesPublicPath || `/_next/static/${imagesFolder}/`,
         outputPath: imagesOutputPath || `${isServer ? '../' : ''}static/${imagesFolder}/`,
         name: imagesName,
       };
+
+      // build options for url-loader with file-loader as fallback
+      const urlLoaderOptions = Object.assign({
+        limit: inlineImageLimit,
+        fallback: 'file-loader',
+      }, fileLoaderOptions);
 
       // build options for img-loader
       const imgLoaderOptions = {
@@ -164,7 +202,9 @@ const withOptimizedImages = (nextConfig) => {
         oneOf: [
           // ?include: include the image directly, no data uri or external file
           // ?inline: force inlining an image regardless of the defined limit
-          ...getResourceQueryLoaders('img-loader', imgLoaderOptions, urlLoaderOptions),
+          // ?url: force a file url/reference, never use inlining
+          // ?original: use the original image and don't optimize it
+          ...getResourceQueryLoaders('img-loader', imgLoaderOptions, fileLoaderOptions, urlLoaderOptions),
 
           // ?webp: convert an image to webp
           {
@@ -243,7 +283,9 @@ const withOptimizedImages = (nextConfig) => {
           oneOf: [
             // ?include: include the image directly, no data uri or external file
             // ?inline: force inlining an image regardless of the defined limit
-            ...getResourceQueryLoaders('webp-loader', webpLoaderOptions, urlLoaderOptions),
+            // ?url: force a file url/reference, never use inlining
+            // ?original: use the original image and don't optimize it
+            ...getResourceQueryLoaders('webp-loader', webpLoaderOptions, fileLoaderOptions, urlLoaderOptions),
 
             // default behavior: inline if below the definied limit, external file if above
             {
