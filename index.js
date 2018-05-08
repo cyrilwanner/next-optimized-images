@@ -95,7 +95,7 @@ const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, fileLoaderOpti
       ]),
     },
 
-    // ?url&original: force a file url/reference, never use inlining
+    // ?url&original: combine url & original param
     {
       resourceQuery: /(url.*original|original.*url)/,
       use: [

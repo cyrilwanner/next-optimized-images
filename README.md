@@ -205,7 +205,7 @@ The inlining will only get applied to exactly this import, so if you import the 
 When you have an image smaller than your defined [limit for inlining](#inlineimagelimit), it normally gets inlined automatically.
 If you don't want a specific small file to get inlined, you can use the `?url` query param to always get back an image url, regardless of the inline limit.
 
-If you are using this option a lot, it could also make sense to [disable the inlining](#inlineimagelimit) completely and use the `?inline` param.
+If you are using this option a lot, it could also make sense to [disable the inlining](#inlineimagelimit) completely and use the [`?inline`](#inline) param for single files.
 
 ```javascript
 import React from 'react';
@@ -223,7 +223,7 @@ export default () => (
  */
 ```
 
-The inlining will only get disabled to exactly this import, so if you import the image a second time without the `?url` option, it will then get inlined again if it is below your limit.
+The inlining will only get disabled for exactly this import, so if you import the image a second time without the `?url` option, it will then get inlined again if it is below your limit.
 
 #### ?sprite
 
