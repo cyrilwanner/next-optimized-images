@@ -1,4 +1,4 @@
-# 🌅 next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![dependencies](https://david-dm.org/cyrilwanner/next-optimized-images/status.svg)](https://david-dm.org/cyrilwanner/next-optimized-images)
+# :sunrise: next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![dependencies](https://david-dm.org/cyrilwanner/next-optimized-images/status.svg)](https://david-dm.org/cyrilwanner/next-optimized-images)
 
 Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg`, `webp` and `gif`).
 
@@ -198,7 +198,32 @@ export default () => (
  */
 ```
 
-The inlining will only get applied to exactly this import, so if you import the image a second time without the `?inline` options, it will then get normally referenced as a file if it is above your limit.
+The inlining will only get applied to exactly this import, so if you import the image a second time without the `?inline` option, it will then get normally referenced as a file if it is above your limit.
+
+#### ?url
+
+When you have an image smaller than your defined [limit for inlining](#inlineimagelimit), it normally gets inlined automatically.
+If you don't want a specific small file to get inlined, you can use the `?url` query param to always get back an image url, regardless of the inline limit.
+
+If you are using this option a lot, it could also make sense to [disable the inlining](#inlineimagelimit) completely and use the [`?inline`](#inline) param for single files.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <img src={require('./images/my-image.jpg?url')} />
+);
+
+/**
+ * Results in:
+ *
+ * <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ *
+ * Even if the image size is below the defined inlining limit.
+ */
+```
+
+The inlining will only get disabled for exactly this import, so if you import the image a second time without the `?url` option, it will then get inlined again if it is below your limit.
 
 #### ?sprite
 
@@ -268,6 +293,19 @@ export default class MyDocument extends Document {
 }
 ```
 
+#### ?original
+
+The image won't get optimized and used as it is.
+It makes sense to use this query param if you know an image already got optimized (e.g. during export) so it doesn't get optimized again a second time.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <img src={require('./images/my-image.jpg?original')} />
+);
+```
+
 ## Configuration
 
 This plugin uses [img-loader](https://www.npmjs.com/package/img-loader) under the hood which is based on [mozjpeg](https://github.com/imagemin/imagemin-mozjpeg), [optipng](https://github.com/imagemin/imagemin-optipng), [gifsicle](https://github.com/imagemin/imagemin-gifsicle) and [svgo](https://github.com/imagemin/imagemin-svgo).
@@ -280,10 +318,12 @@ Type: `number`<br>
 Default: `8192`
 
 Smaller files will get inlined with a data-uri by [url-loader](https://www.npmjs.com/package/url-loader).
-This number defines the maximum file size for images to get inlined.
+This number defines the maximum file size (in bytes) for images to get inlined.
 If an image is bigger, it will get copied to the static folder of next.
 
 Images will get optimized in both cases.
+
+To completely disable image inlining, set this value to `-1`. You will then always get back an image url.
 
 #### imagesFolder
 
