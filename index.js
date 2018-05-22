@@ -89,7 +89,7 @@ const getResourceQueryLoaders = (imgLoaderName, imgLoaderOptions, fileLoaderOpti
             urlLoaderOptions,
             {
               limit: undefined,
-            },
+            }
           ),
         },
       ]),
@@ -218,7 +218,7 @@ const withOptimizedImages = (nextConfig) => {
                   {
                     name: `${imagesName}.webp`,
                     mimetype: 'image/webp',
-                  },
+                  }
                 ),
               },
               {
