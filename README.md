@@ -113,6 +113,8 @@ You can use both variants directly on an image in the `src` attribute or in your
 
 ### Query params
 
+> *If you are using flow or eslint-plugin-import and are experiencing some issues with query params, check out the [solution posted by @eleith](https://github.com/cyrilwanner/next-optimized-images/issues/23).*
+
 There are some cases where you don't want to reference a file or get a base64 data-uri but you actually want to include the raw file directly into your html.
 Especially for svgs because you can't style them with css if they are in an `src` attribute on an image.
 
