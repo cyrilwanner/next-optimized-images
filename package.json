@@ -2,9 +2,9 @@
   "name": "next-optimized-images",
   "version": "1.4.1",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": [
-    "index.js",
+    "lib",
     "svg-runtime-generator.js"
   ],
   "scripts": {
@@ -30,16 +30,14 @@
   },
   "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
   "dependencies": {
-    "file-loader": "^1.1.11",
-    "img-loader": "^2.0.1",
+    "file-loader": "^2.0.0",
+    "img-loader": "^3.0.1",
     "raw-loader": "^0.5.1",
-    "svg-sprite-loader": "^3.7.3",
-    "url-loader": "^1.0.1",
-    "webp-loader": "^0.4.0"
+    "url-loader": "^1.1.2"
   },
   "devDependencies": {
-    "jest": "^22.4.2",
+    "jest": "^23.6.0",
     "npm-autoinstaller": "^1.3.1",
-    "webpack": "^4.4.1"
+    "webpack": "^4.22.0"
   }
 }
