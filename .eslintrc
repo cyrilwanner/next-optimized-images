@@ -10,6 +10,7 @@
     "jest/no-disabled-tests": "error",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
-    "import/prefer-default-export": "ignore"
+    "import/prefer-default-export": "ignore",
+    "import/no-extraneous-dependencies": "ignore"
   }
 }
