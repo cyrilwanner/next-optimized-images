@@ -4,8 +4,7 @@
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "lib/index.js",
   "files": [
-    "lib",
-    "svg-runtime-generator.js"
+    "lib"
   ],
   "scripts": {
     "lint": "eslint lib",
