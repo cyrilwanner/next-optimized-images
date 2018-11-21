@@ -35,6 +35,7 @@
     "chalk": "^2.4.1",
     "figures": "^2.0.0",
     "file-loader": "^2.0.0",
+    "imagemin": "^6.0.0",
     "img-loader": "^3.0.1",
     "raw-loader": "^0.5.1",
     "url-loader": "^1.1.2"
