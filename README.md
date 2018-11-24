@@ -1,5 +1,7 @@
 # :sunrise: next-optimized-images [![npm version](https://img.shields.io/npm/v/next-optimized-images.svg)](https://www.npmjs.com/package/next-optimized-images) [![license](https://img.shields.io/github/license/cyrilwanner/next-optimized-images.svg)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![dependencies](https://david-dm.org/cyrilwanner/next-optimized-images/status.svg)](https://david-dm.org/cyrilwanner/next-optimized-images)
 
+**This is the readme for version 1 of next-optimized-images. For the current version, please checkout the [master branch](https://github.com/cyrilwanner/next-optimized-images).**
+
 Automatically optimize images used in [next.js](https://github.com/zeit/next.js) projects (`jpeg`, `png`, `svg`, `webp` and `gif`).
 
 Image sizes can often get reduced between 20-60%, but this is not the only thing `next-optimized-images` does:
@@ -26,7 +28,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 ## Installation
 
 ```
-npm install --save next-optimized-images
+npm install --save next-optimized-images@1
 ```
 
 Enable the plugin in your Next.js configuration file:
