@@ -1,11 +1,8 @@
 language: node_js
 node_js:
-  - 9
+  - 10
   - 8
-  - 6
 before_install:
-  - 'if [[ $(node -v) =~ ^v6.*$ ]]; then npm install -g npm@5; fi'
-  - 'if [[ $(node -v) =~ ^v7.*$ ]] || [[ $(node -v) =~ ^v8.*$ ]]; then npm install -g npm@latest; fi'
   - npm install -g greenkeeper-lockfile
 install:
   - npm install
