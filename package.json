@@ -9,8 +9,8 @@
   "scripts": {
     "lint": "eslint lib",
     "lint:fix": "eslint --fix lib",
-    "test": "jest --coverage lib",
-    "test:watch": "jest --watch lib"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
