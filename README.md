@@ -101,6 +101,8 @@ The following optimization packages are available and supported:
 
 :warning: Please note that by default, images are only optimized for **production builds, not development builds**. However, this can get changed with the [`optimizeImagesInDev` config](#optimizeimagesindev).
 
+:bulb: Depending on your build/deployment setup, it is also possibile to install these as devDependencies. Just make sure that the packages are available when you build your project.
+
 ## Usage
 
 You can now import or require your images directly in your react components:
