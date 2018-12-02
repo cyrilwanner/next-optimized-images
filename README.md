@@ -162,7 +162,7 @@ Especially for SVGs because you can't style them with CSS if they are in an `src
 
 So there are additional options you can specify as query params when you import the images.
 
-* [`?include`](#include): Include the raw file directly
+* [`?include`](#include): Include the raw file directly (useful for SVG icons)
 * [`?webp`](#webp): Convert a JPEG/PNG image to WebP on the fly
 * [`?inline`](#inline): Force inlining an image (data-uri)
 * [`?url`](#url): Force an URL for a small image (instead of data-uri)
