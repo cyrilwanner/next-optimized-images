@@ -2,7 +2,7 @@
 
 ## From version `1.x` to `2.x`
 
-From version 1 to 2, some breaking changes got introduced. Please read this document carefully and update your configuration if needed.
+From version 1 to 2, some breaking changes were introduced. Please read this document carefully and update your configuration if needed.
 
 ### Optional optimization packages
 
@@ -10,10 +10,10 @@ In version 1, we installed all possible optimization packages (JPEG, PNG, GIF, S
 
 With version 2, we also updated the underlying [`img-loader`](https://www.npmjs.com/package/img-loader) which now enables us to have all optimization packages optional.
 
-This now enables you do only install the ones you really need and in the build step you need them (e.g. only as a devDependency).
+This now enables you to only install the ones you really need and in the build step you need them (e.g. only as a devDependency).
 **But you have to install them manually in addition to next-optimized-images.**
 
-To have the same behavior (all optimization packages installed), run the following command *after* upgrading to next-optimized-images:
+To have the same behavior as in *v1* (all optimization packages installed), run the following command *after* upgrading to next-optimized-images:
 ```bash
 npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader
 ```
@@ -45,7 +45,7 @@ From now on, simply uninstall (if you had it installed) the `imagemin-mozjpeg` p
 
 Previously, if you didn't want, for example, jpeg images to be handled by next-optimized-images because you had another plugin or a custom loader definition for it, you could set `mozjpeg` to `false` (same for `optipng`, `pngquant`, `gifsicle`, `svgo` or `webp`).
 
-Now, this setting is in a single configuration key, the [`handledImages`](https://github.com/cyrilwanner/next-optimized-images#handleimages).
+Now, this setting is in a single configuration key, the [`handleImages`](https://github.com/cyrilwanner/next-optimized-images#handleimages).
 You can define the image types which next-optimized-images should handle within this array:
 ```javascript
 {
