@@ -8,23 +8,23 @@ module.exports = ({ symbol, config, context, loaderContext }) => {
   const symbolRequest = stringifyRequest({ context }, symbolModule);
 
   return `
-    import React from 'react';
-    import SpriteSymbol from ${symbolRequest};
-    import sprite from ${spriteRequest};
+    var React = require('react');
+    var SpriteSymbol = require(${symbolRequest});
+    var sprite = require(${spriteRequest});
 
-    const symbol = new SpriteSymbol(${stringifySymbol(symbol)});
+    var symbol = new SpriteSymbol(${stringifySymbol(symbol)});
     sprite.add(symbol);
 
-    const SvgSpriteIcon = function SvgSpriteIcon(props) {
+    var SvgSpriteIcon = function SvgSpriteIcon(props) {
       return React.createElement(
         'svg',
         Object.assign({
-          viewBox: symbol.viewBox,
+          viewBox: symbol.viewBox
         }, props),
         React.createElement(
           'use',
           {
-            xlinkHref: '#' + symbol.id,
+            xlinkHref: '#' + symbol.id
           }
         )
       );
@@ -36,6 +36,7 @@ module.exports = ({ symbol, config, context, loaderContext }) => {
     SvgSpriteIcon.url = symbol.url;
     SvgSpriteIcon.toString = symbol.toString;
 
-    export default SvgSpriteIcon;
+    module.exports = SvgSpriteIcon;
+    module.exports.default = SvgSpriteIcon;
   `;
 };
