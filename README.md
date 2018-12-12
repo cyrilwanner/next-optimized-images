@@ -16,6 +16,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Provides **[query params](#query-params)** for file-specific handling/settings
 * jpeg/png images can be **converted to [`webp` on the fly](#webp)** for an even smaller size
 * Provides the possibility to use **[`SVG sprites`](#sprite)** for a better performance when using the same icons multiple times (e.g. in a list)
+* Can generate **low quality image placeholders** ([lqip](#lqip)) and extract the dominant [colors](#lqip-colors) of an image
 
 ## Table of contents
 
@@ -77,9 +78,9 @@ Starting from version 2, you have to install the optimization packages you need 
 
 **So you only have to install these packages with npm, there is no additional step needed after that.**
 
-To get the same behavior as in version 1 and to do all possible optimization, install them all with:
+To install all optional packages, run:
 ```bash
-npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader
+npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader
 ```
 
 The following optimization packages are available and supported:
@@ -93,6 +94,7 @@ The following optimization packages are available and supported:
 | `imagemin-svgo`      | Optimizes SVG images and icons. | [Link](https://www.npmjs.com/package/imagemin-svgo)
 | `svg-sprite-loader`  | Adds the possibility to use svg sprites for a better performance. Read the [sprite](#sprite) section for more information. | [Link](https://www.npmjs.com/package/svg-sprite-loader)
 | `webp-loader`        | Optimizes WebP images and can convert JPEG/PNG images to WebP on the fly ([webp resource query](#webp)). | [Link](https://www.npmjs.com/package/webp-loader)
+| `lqip-loader`        | Generates low quality image placeholders and can extract the dominant colors of an image ([lqip resource query](#lqip)) | [Link](https://www.npmjs.com/package/lqip-loader)
 
 > Example: If you have JPG, PNG, and SVG images in your project, you would then need to run
 > ```bash
@@ -167,6 +169,8 @@ So there are additional options you can specify as query params when you import 
 * [`?inline`](#inline): Force inlining an image (data-uri)
 * [`?url`](#url): Force an URL for a small image (instead of data-uri)
 * [`?original`](#original): Use the original image and do not optimize it
+* [`?lqip`](#lqip): Generate a low quality image placeholder
+* [`?lqip-colors`](#lqip-colors): Extract the dominant colors of an image
 * [`?sprite`](#sprite): Use SVG sprites
 
 #### ?include
@@ -292,6 +296,53 @@ export default () => (
 ```
 
 This can also be combined with the `?url` or `?inline` resource query (e.g. `?original&inline`).
+
+#### ?lqip
+
+> Requires the optional package `lqip-loader` (`npm install lqip-loader`)
+
+When using this resource query, a very small (about 10x7 pixel) image gets created.
+You can then display this image as a placeholder until the real (big) image has loaded.
+
+You will normally stretch this tiny image to the same size as the real image is, like *medium.com* does.
+To make the stretched image look better in chrome, check out [this solution](https://github.com/zouhir/lqip-loader/issues/5) and add a blur filter to your image.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <img src={require('./images/my-image.jpg?lqip')} />
+);
+
+/**
+ * Replaces the src with a tiny image in base64.
+ */
+```
+
+#### ?lqip-colors
+
+> Requires the optional package `lqip-loader` (`npm install lqip-loader`)
+
+This resource query returns you an **array with hex values** of the dominant colors of an image.
+You can also use this as a placeholder until the real image has loaded (e.g. as a background) like the *Google Picture Search* does.
+
+The number of colors returned can vary and depends on how many different colors your image has.
+
+```javascript
+import React from 'react';
+
+export default () => (
+  <div style={{ backgroundColor: require('./images/my-image.jpg?lqip-colors')[0] }}>...</div>
+);
+
+/**
+ * require('./images/my-image.jpg?lqip-colors')
+ *
+ * returns for example
+ *
+ * ['#0e648d', '#5f94b5', '#a7bbcb', '#223240', '#a4c3dc', '#1b6c9c']
+ */
+```
 
 #### ?sprite
 

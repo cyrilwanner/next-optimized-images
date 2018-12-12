@@ -26,7 +26,7 @@ describe('next-optimized-images/loaders/webp-loader', () => {
 
     expect(rule.test).toBeInstanceOf(RegExp);
     expect(rule.test.test('.webp')).toEqual(true);
-    expect(rule.oneOf).toHaveLength(8);
+    expect(rule.oneOf).toHaveLength(10);
   });
 
   it('generates a resource query for webp conversion', () => {

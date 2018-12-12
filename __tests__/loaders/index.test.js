@@ -25,6 +25,7 @@ describe('next-optimized-images/loaders', () => {
       svgSprite: 'svg-sprite-loader', // is in the devDependencies
       webp: false,
       png: false,
+      lqip: false,
     });
   });
 
