@@ -16,7 +16,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Provides **[query params](#query-params)** for file-specific handling/settings
 * jpeg/png images can be **converted to [`webp` on the fly](#webp)** for an even smaller size
 * Provides the possibility to use **[`SVG sprites`](#sprite)** for a better performance when using the same icons multiple times (e.g. in a list)
-* Can generate **low quality image placeholders** ([lqip](#lqip)) and extract the dominant [colors](#lqip-colors) of an image
+* Can **[resize](#resize)** images or generate **low quality image placeholders** ([lqip](#lqip)) and extract the dominant [colors](#lqip-colors) of it
 
 ## Table of contents
 
@@ -78,11 +78,6 @@ Starting from version 2, you have to install the optimization packages you need 
 
 **So you only have to install these packages with npm, there is no additional step needed after that.**
 
-To install all optional packages, run:
-```bash
-npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader
-```
-
 The following optimization packages are available and supported:
 
 | Optimization Package | Description | Project Link |
@@ -95,11 +90,17 @@ The following optimization packages are available and supported:
 | `svg-sprite-loader`  | Adds the possibility to use svg sprites for a better performance. Read the [sprite](#sprite) section for more information. | [Link](https://www.npmjs.com/package/svg-sprite-loader)
 | `webp-loader`        | Optimizes WebP images and can convert JPEG/PNG images to WebP on the fly ([webp resource query](#webp)). | [Link](https://www.npmjs.com/package/webp-loader)
 | `lqip-loader`        | Generates low quality image placeholders and can extract the dominant colors of an image ([lqip resource query](#lqip)) | [Link](https://www.npmjs.com/package/lqip-loader)
+| `responsive-loader`  | Can resize images on the fly and create multiple versions of it for a `srcset`.<br>**Important**: You need to additionally install either `jimp` (node implementation, slower) or `sharp` (binary, faster) | [Link](https://www.npmjs.com/package/responsive-loader)
 
 > Example: If you have JPG, PNG, and SVG images in your project, you would then need to run
 > ```bash
 > npm install imagemin-mozjpeg imagemin-optipng imagemin-svgo
 > ```
+
+To install *all* optional packages, run:
+```bash
+npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader responsive-loader jimp
+```
 
 :warning: Please note that by default, images are only optimized for **production builds, not development builds**. However, this can get changed with the [`optimizeImagesInDev` config](#optimizeimagesindev).
 
@@ -171,6 +172,7 @@ So there are additional options you can specify as query params when you import 
 * [`?original`](#original): Use the original image and do not optimize it
 * [`?lqip`](#lqip): Generate a low quality image placeholder
 * [`?lqip-colors`](#lqip-colors): Extract the dominant colors of an image
+* [`?resize`](#resize): Resize an image
 * [`?sprite`](#sprite): Use SVG sprites
 
 #### ?include
@@ -343,6 +345,32 @@ export default () => (
  * ['#0e648d', '#5f94b5', '#a7bbcb', '#223240', '#a4c3dc', '#1b6c9c']
  */
 ```
+
+#### ?resize
+
+> Requires the optional package `responsive-loader` (`npm install responsive-loader`)
+> and either `jimp` (node implementation, slower) or `sharp` (binary, faster)
+
+After the `?resize` resource query, you can add any other query of the [`responsive-loader`](https://www.npmjs.com/package/responsive-loader) which allows you to resize images and create whole source sets.
+
+```javascript
+import React from 'react';
+
+const oneSize = require('./images/my-image.jpg?resize&size=300');
+const multipleSizes = require('./images/my-image.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=1000');
+
+export default () => (
+  <div>
+    {/* Single image: */}
+    <img src={oneSize.src} />
+
+    {/* Source set with multiple sizes: */}
+    <img srcSet={multipleSizes.srcSet} src={multipleSizes.src} />
+  </div>
+);
+```
+
+You can also set global configs in the [`responsive`](#responsive) property (in the `next.config.js` file) and define, for example, default sizes which will get generated when you don't specify one for an image (e.g. only `my-image.jpg?resize`).
 
 #### ?sprite
 
@@ -581,6 +609,15 @@ Default: `{}`
 [imagemin-webp](https://github.com/imagemin/imagemin-webp) is used for optimizing webp images and converting other formats to webp.
 You can specify the options for it here.
 The default options of `imagemin-webp` are used if you omit this option.
+
+#### responsive
+
+> Requires the optional optimization package `responsive-loader` (`npm install responsive-loader`)
+
+Type: `object`<br>
+Default: `{}`
+
+The configuration for the [`responsive-loader`](https://github.com/herrstucki/responsive-loader) can be defined here.
 
 #### optimizeImages
 
