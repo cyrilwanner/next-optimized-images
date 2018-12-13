@@ -20,13 +20,13 @@ describe('next-optimized-images/loaders/webp-loader', () => {
 
   it('adds rules to the webpack config', () => {
     const webpackConfig = { module: { rules: [] } };
-    applyWebpLoader(webpackConfig, getConfig({}), true, false);
+    applyWebpLoader(webpackConfig, getConfig({}), true, false, {});
 
     const rule = webpackConfig.module.rules[0];
 
     expect(rule.test).toBeInstanceOf(RegExp);
     expect(rule.test.test('.webp')).toEqual(true);
-    expect(rule.oneOf).toHaveLength(10);
+    expect(rule.oneOf).toHaveLength(11);
   });
 
   it('generates a resource query for webp conversion', () => {

@@ -26,6 +26,8 @@ describe('next-optimized-images/loaders', () => {
       webp: false,
       png: false,
       lqip: false,
+      responsive: false,
+      responsiveAdapter: false,
     });
   });
 
