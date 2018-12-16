@@ -23,6 +23,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 - [Installation](#installation)
 - [Optimization Packages](#optimization-packages)
 - [Usage](#usage)
+  - [Query Params](#query-params)
 - [Configuration](#configuration)
 - [Example](#example)
 - [See also](#see-also)
