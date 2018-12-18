@@ -622,6 +622,20 @@ Default: `{}`
 
 The configuration for the [`responsive-loader`](https://github.com/herrstucki/responsive-loader) can be defined here.
 
+#### defaultImageLoader
+
+> Requires the optional optimization package `responsive-loader` (`npm install responsive-loader`)
+
+Type: `string`<br>
+Default: `'img-loader'`
+
+By default, img-loader handles most of the requests.
+However, if you use the `responsive-loader` a lot and don't want to add the [`?resize`](#resize) query param to every require, you can set this value to `'responsive-loader'`.
+
+After that, `responsive-loader` will handle *all* JPEG and PNG images per default, even without an additional query param.
+Just be aware that you can't use any of the query params `next-optimized-images` provides anymore on these images because the request just gets forwarded and not modified anymore.
+All other formats (SVG, WEBP and GIF) still work as before with the `img-loader` and so have all query params available.
+
 #### optimizeImages
 
 Type: `boolean`<br>
