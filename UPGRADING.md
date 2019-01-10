@@ -30,7 +30,7 @@ If you need to support older node versions, you can still use [version 1](https:
 
 #### `assetPrefix` and `imagesPublicPath`
 
-next-optimized-images now uses the [`assetPrefx` config of next.js](https://nextjs.org/docs/#cdn-support-with-asset-prefix) by default.
+next-optimized-images now uses the [`assetPrefix` config of next.js](https://nextjs.org/docs/#cdn-support-with-asset-prefix) by default.
 So if your images are located at the same place as your other assets, you don't have to set the `imagesPublicPath` anymore.
 
 But this config still exists and if specified, overwrites the `assetPrefix` setting for images.
