@@ -173,6 +173,7 @@ So there are additional options you can specify as query params when you import 
 * [`?original`](#original): Use the original image and do not optimize it
 * [`?lqip`](#lqip): Generate a low quality image placeholder
 * [`?lqip-colors`](#lqip-colors): Extract the dominant colors of an image
+* [`?trace`](#trace): Use traced outlines as loading placeholder
 * [`?resize`](#resize): Resize an image
 * [`?sprite`](#sprite): Use SVG sprites
 
@@ -346,6 +347,39 @@ export default () => (
  * ['#0e648d', '#5f94b5', '#a7bbcb', '#223240', '#a4c3dc', '#1b6c9c']
  */
 ```
+
+#### ?trace
+
+> Requires the optional package `image-trace-loader` (`npm install image-trace-loader`)
+
+With the `?trace` resource query, you can generate [SVG image outlines](https://twitter.com/mikaelainalem/status/918213244954861569) which can be used as a placeholder while loading the original image.
+
+```javascript
+import React from 'react';
+import MyImage from './images/my-image.jpg?trace';
+
+export default () => (
+  <div>
+    <img src={MyImage.trace} />   {/* <-- SVG trace */}
+    <img src={MyImage.src} />     {/* <-- Normal image which you want to lazy load */}
+  </div>
+);
+
+/**
+ * Results in:
+ *
+ * <div>
+ *  <img src="data:image/svg+xml,...">
+ *  <img src="/_next/static/images/image-trace-85bf5c58ce3d91fbbf54aa03c44ab747.jpg">
+ * </div>
+ */
+```
+
+`require('./images/my-image.jpg?trace')` returns an object containing the trace (`trace`) as an inlined SVG and the normal image (`src`) which also gets optimized.
+
+The trace will have exactly the same width and height as your normal image.
+
+Options for the loader can be set in the [plugin configuration](#imagetrace).
 
 #### ?resize
 
@@ -612,6 +646,16 @@ Default: `{}`
 [imagemin-webp](https://github.com/imagemin/imagemin-webp) is used for optimizing webp images and converting other formats to webp.
 You can specify the options for it here.
 The default options of `imagemin-webp` are used if you omit this option.
+
+#### imageTrace
+
+> Requires the optional package `image-trace-loader` (`npm install image-trace-loader`)
+
+Type: `object`<br>
+Default: `{}`
+
+When using [`image-trace-loader`](https://github.com/EmilTholin/image-trace-loader) for the `?trace` resource query, you can define all options for the image trace loader in this object.
+The default options of `image-trace-loader` are used if you omit this option.
 
 #### responsive
 
