@@ -78,6 +78,6 @@ describe('next-optimized-images/loaders/img-loader', () => {
     const rule = webpackConfig.module.rules[0];
 
     expect(rule.test).toBeInstanceOf(RegExp);
-    expect(rule.oneOf).toHaveLength(11);
+    expect(rule.oneOf).toHaveLength(13);
   });
 });
