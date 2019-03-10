@@ -16,7 +16,7 @@ Image sizes can often get reduced between 20-60%, but this is not the only thing
 * Provides **[query params](#query-params)** for file-specific handling/settings
 * jpeg/png images can be **converted to [`webp` on the fly](#webp)** for an even smaller size
 * Provides the possibility to use **[`SVG sprites`](#sprite)** for a better performance when using the same icons multiple times (e.g. in a list)
-* Can **[resize](#resize)** images or generate **low quality image placeholders** ([lqip](#lqip)) and extract the dominant [colors](#lqip-colors) of it
+* Can **[resize](#resize)** images or generate different **placeholders while lazy loading** images: [low quality images](#lqip), [dominant colors](#lqip-colors) or [image outlines](#trace)
 
 ## Table of contents
 
