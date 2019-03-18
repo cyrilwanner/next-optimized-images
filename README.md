@@ -100,7 +100,7 @@ The following optimization packages are available and supported:
 
 To install *all* optional packages, run:
 ```bash
-npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader responsive-loader jimp
+npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader responsive-loader jimp image-trace-loader
 ```
 
 :warning: Please note that by default, images are only optimized for **production builds, not development builds**. However, this can get changed with the [`optimizeImagesInDev` config](#optimizeimagesindev).
