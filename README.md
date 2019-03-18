@@ -92,6 +92,7 @@ The following optimization packages are available and supported:
 | `webp-loader`        | Optimizes WebP images and can convert JPEG/PNG images to WebP on the fly ([webp resource query](#webp)). | [Link](https://www.npmjs.com/package/webp-loader)
 | `lqip-loader`        | Generates low quality image placeholders and can extract the dominant colors of an image ([lqip resource query](#lqip)) | [Link](https://www.npmjs.com/package/lqip-loader)
 | `responsive-loader`  | Can resize images on the fly and create multiple versions of it for a `srcset`.<br>**Important**: You need to additionally install either `jimp` (node implementation, slower) or `sharp` (binary, faster) | [Link](https://www.npmjs.com/package/responsive-loader)
+| `image-trace-loader` | Generates SVG image [outlines](https://twitter.com/mikaelainalem/status/918213244954861569) which can be used as a placeholder while loading the original image ([trace resource query](#trace)). | [Link](https://www.npmjs.com/package/image-trace-loader)
 
 > Example: If you have JPG, PNG, and SVG images in your project, you would then need to run
 > ```bash
