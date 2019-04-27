@@ -108,6 +108,8 @@ npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo sv
 
 :bulb: Depending on your build/deployment setup, it is also possibile to install these as devDependencies. Just make sure that the packages are available when you build your project.
 
+:information_source: Since version 2.5, `ico` files are also optionally supported but need to be enabled in the [`handleImages` config](#handleimages).
+
 ## Usage
 
 You can now import or require your images directly in your react components:
@@ -497,6 +499,9 @@ If you don't want one of these handled by next-optimized-images because you, for
 Please note that an image being handled does not mean it also gets automatically optimized. The required optimization package for that image also has to be installed. Please read the [optimization packages](#optimization-packages) section for more information.
 
 If an image gets handled but not optimized, it means that the original image will get used and copied for the build.
+
+:information_source: Since version 2.5, `ico` files are also supported but for backwards compatibility, they need to be manually enabled.
+By adding `'ico'` to the `handleImages` array, the plugin will also handle `ico` files.
 
 #### inlineImageLimit
 
