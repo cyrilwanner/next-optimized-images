@@ -1,6 +1,6 @@
 # next-optimized-images Example
 
-This example showcases all available features of `next-optimized-images`.
+This example showcases a basic setup of `next-optimized-images`.
 
 ## Setup
 
