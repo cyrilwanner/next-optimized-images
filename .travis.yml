@@ -11,6 +11,7 @@ before_script:
   - greenkeeper-lockfile-update
 script:
   - npm test
+  - npm run lint
   - codecov
 after_script:
   - greenkeeper-lockfile-upload

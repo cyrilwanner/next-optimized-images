@@ -38,14 +38,16 @@ describe('next-optimized-images/loaders', () => {
       svg: true,
       webp: true,
       gif: true,
+      ico: false,
     });
 
-    expect(getHandledImageTypes(getConfig({ handleImages: ['jpg', 'png'] }))).toEqual({
+    expect(getHandledImageTypes(getConfig({ handleImages: ['jpg', 'png', 'ico'] }))).toEqual({
       jpeg: true,
       png: true,
       svg: false,
       webp: false,
       gif: false,
+      ico: true,
     });
 
     expect(getHandledImageTypes(getConfig({ handleImages: [] }))).toEqual({
@@ -54,6 +56,7 @@ describe('next-optimized-images/loaders', () => {
       svg: false,
       webp: false,
       gif: false,
+      ico: false,
     });
   });
 

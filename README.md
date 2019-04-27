@@ -92,6 +92,7 @@ The following optimization packages are available and supported:
 | `webp-loader`        | Optimizes WebP images and can convert JPEG/PNG images to WebP on the fly ([webp resource query](#webp)). | [Link](https://www.npmjs.com/package/webp-loader)
 | `lqip-loader`        | Generates low quality image placeholders and can extract the dominant colors of an image ([lqip resource query](#lqip)) | [Link](https://www.npmjs.com/package/lqip-loader)
 | `responsive-loader`  | Can resize images on the fly and create multiple versions of it for a `srcset`.<br>**Important**: You need to additionally install either `jimp` (node implementation, slower) or `sharp` (binary, faster) | [Link](https://www.npmjs.com/package/responsive-loader)
+| `image-trace-loader` | Generates SVG image [outlines](https://twitter.com/mikaelainalem/status/918213244954861569) which can be used as a placeholder while loading the original image ([trace resource query](#trace)). | [Link](https://www.npmjs.com/package/image-trace-loader)
 
 > Example: If you have JPG, PNG, and SVG images in your project, you would then need to run
 > ```bash
@@ -100,12 +101,14 @@ The following optimization packages are available and supported:
 
 To install *all* optional packages, run:
 ```bash
-npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader responsive-loader jimp
+npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo svg-sprite-loader webp-loader lqip-loader responsive-loader jimp image-trace-loader
 ```
 
 :warning: Please note that by default, images are only optimized for **production builds, not development builds**. However, this can get changed with the [`optimizeImagesInDev` config](#optimizeimagesindev).
 
 :bulb: Depending on your build/deployment setup, it is also possibile to install these as devDependencies. Just make sure that the packages are available when you build your project.
+
+:information_source: Since version 2.5, `ico` files are also optionally supported but need to be enabled in the [`handleImages` config](#handleimages).
 
 ## Usage
 
@@ -496,6 +499,9 @@ If you don't want one of these handled by next-optimized-images because you, for
 Please note that an image being handled does not mean it also gets automatically optimized. The required optimization package for that image also has to be installed. Please read the [optimization packages](#optimization-packages) section for more information.
 
 If an image gets handled but not optimized, it means that the original image will get used and copied for the build.
+
+:information_source: Since version 2.5, `ico` files are also supported but for backwards compatibility, they need to be manually enabled.
+By adding `'ico'` to the `handleImages` array, the plugin will also handle `ico` files.
 
 #### inlineImageLimit
 

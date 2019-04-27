@@ -1,6 +1,6 @@
 {
   "name": "next-optimized-images",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "lib/index.js",
   "files": [
@@ -33,7 +33,7 @@
   "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
   "dependencies": {
     "chalk": "^2.4.1",
-    "figures": "^2.0.0",
+    "figures": "^3.0.0",
     "file-loader": "^3.0.1",
     "imagemin": "^6.0.0",
     "img-loader": "^3.0.1",
