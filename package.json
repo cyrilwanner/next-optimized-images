@@ -34,7 +34,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "figures": "^3.0.0",
-    "file-loader": "^3.0.1",
+    "file-loader": "^4.0.0",
     "imagemin": "^6.1.0",
     "img-loader": "^3.0.1",
     "raw-loader": "^2.0.0",
