@@ -41,7 +41,7 @@
     "url-loader": "^1.1.2"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.5.1",
