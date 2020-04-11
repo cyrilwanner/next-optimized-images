@@ -33,7 +33,6 @@
   "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
   "dependencies": {
     "chalk": "^2.4.2",
-    "compare-versions": "^3.6.0",
     "figures": "^3.0.0",
     "file-loader": "^3.0.1",
     "imagemin": "^6.1.0",
