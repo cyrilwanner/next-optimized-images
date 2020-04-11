@@ -1,6 +1,6 @@
 {
   "name": "next-optimized-images",
-  "version": "2.5.8-canary.0",
+  "version": "2.5.8-canary.1",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "lib/index.js",
   "files": [
