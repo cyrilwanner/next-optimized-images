@@ -548,6 +548,13 @@ Default: `'[name]-[hash].[ext]'`
 The filename of the optimized images.
 Make sure you keep the `[hash]` part so they receive a new filename if the content changes.
 
+#### removeOriginalExtension
+
+Type: `boolean`<br>
+Default: `false`
+
+When images converted to WebP on the fly, `.webp` was append to the filename. For example, `test.png` became `test.png.webp`. If you want to have only one filename extension like `test.webp`, you can set this option to `true`.
+
 #### optimizeImagesInDev
 
 Type: `boolean`<br>
@@ -714,6 +721,7 @@ module.exports = withPlugins([
     imagesFolder: 'images',
     imagesName: '[name]-[hash].[ext]',
     handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
+    removeOriginalExtension: false,
     optimizeImages: true,
     optimizeImagesInDev: false,
     mozjpeg: {
