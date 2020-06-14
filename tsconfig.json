@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "esnext",
+    "target": "ES2017",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "lib"
+  },
+  "exclude": ["./lib", "./*.d.ts", "./__tests__"]
+}
