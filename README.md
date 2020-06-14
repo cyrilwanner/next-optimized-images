@@ -41,7 +41,7 @@ New features compared to the current version which are already in the canary ver
 ## Installation
 
 ```
-npm install next-optimized-images
+npm install next-optimized-images@canary
 ```
 
 Requirements:
