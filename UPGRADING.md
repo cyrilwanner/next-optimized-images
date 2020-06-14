@@ -1,5 +1,48 @@
 # Upgrading
 
+## From version `2.x` to `canary`
+
+This is a complete rewrite and so introduced a few breaking changes. Please check out the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md) for an overview of all newly available features. Also, not all features previously available in version 2 are already implemented in the canary version. A list of currently missing features is also located at the top of the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md).
+
+### Breaking changes
+
+#### Optional optimization packages
+
+There are no more optional optimization packages. Because images are now optimized through node or WebAssembly, the packages are a lot smaller and run on every system and so get shipped by default.
+
+You can uninstall all previously installed packages (e.g. `imagemin-mozjpeg`, `imagemin-optipng`, `imagemin-pngquant`, `imagemin-gifsicle`, `imagemin-svgo`, `svg-sprite-loader`, `webp-loader`, `lqip-loader`, `responsive-loader`, `image-trace-loader`).
+
+#### Query params
+
+It is now suggested to use the provided JSX components instead of writing the query params manually. An advantage is that the components have full typescript support.
+
+However, it is still possible to use query params.
+There is one breaking change with the query params:
+
+`?resize` has been removed in favor of `?width=` and `?height=`. As a result, it is no longer possible to specify multiple sizes within the same query. This decision was made to follow the concepts of webpack closer where every import should target one image. That also makes it possible to chain loaders and forward the output to other loaders. Again, it is suggested to use the [Img](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md#img) component which will handle that for you.
+
+Please read the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md#configuration) for more information about how to use the `width` and `height` query param (not both are required to be set, e.g. only `width` would be enough).
+
+#### Configuration
+
+The configuration with the `next.config.js` has changed a lot. For example, all options for this plugin have to be specified within the `images` property and so many options have been renamed (to a shorter name). Please read the section within the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md) and adapt your config manually.
+
+The default output paths have also been changed from `/_next/static/images/` to `/_next/static/chunks/images/` so next automatically sets the correct caching headers.
+
+#### Babel configuration
+
+To use the image components, a babel plugin is now required.
+
+Add the `react-optimized-image/plugin` babel plugin to your `.babelrc` file.
+If you don't yet have a `.babelrc` file, create one with the following content:
+
+```json
+{
+  "presets": ["next/babel"],
+  "plugins": ["react-optimized-image/plugin"]
+}
+```
+
 ## From version `1.x` to `2.x`
 
 From version 1 to 2, some breaking changes were introduced. Please read this document carefully and update your configuration if needed.
