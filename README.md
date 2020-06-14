@@ -21,7 +21,7 @@ New features compared to the current version which are already in the canary ver
 - **Image optimization is performed either in node or WebAssembly** - there is no need for imagemin plugins anymore and so no native binaries are required
 - **Build cache for images** - results in way faster builds and images are also optimized in the dev environment by default
 - **Image components** are provided for even easier use - there shouldn't be a need to use query params anymore normally (a babel plugin does that now for you)
-- [**images.config.js**](#images.config.js) for global configuration and definition and re-use of image types and their options
+- [**images.config.js**](#imagesconfigjs) for global configuration and definition and re-use of image types and their options
 - **Full typescript support** thanks to the provided image components
 - Query params can be **chained** now - for example `?webp&width=400`
 - ...and more. Read this readme file for an overview of all features.
@@ -34,8 +34,8 @@ New features compared to the current version which are already in the canary ver
   - [Image components](#image-components)
   - [Query params](#query-params)
 - [Configuration](#configuration)
-  - [next.config.js](#next.config.js)
-  - [images.config.js](#images.config.js)
+  - [next.config.js](#nextconfigjs)
+  - [images.config.js](#imagesconfigjs)
 - [License](#license)
 
 ## Installation
@@ -134,7 +134,7 @@ If you are using CSS modules, this package also detects images and optimized the
 }
 ```
 
-If the file is below the [limit for inlining images](#inlineimagelimit), the `require(...)` will return a base64 data-uri (`data:image/jpeg;base64,...`).
+If the file is below the [limit for inlining images](#nextconfigjs), the `require(...)` will return a base64 data-uri (`data:image/jpeg;base64,...`).
 
 Otherwise, `next-optimized-images` will copy your image into the static folder of next.js and the `require(...)` returns the path to your image in this case (`/_next/static/chunks/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
 
@@ -204,7 +204,7 @@ export default () => (
 | inline | | `boolean` | If true, the image will get forced to an inline data-uri (e.g. `data:image/png;base64,...`). |
 | url | | `boolean` | If true, the image will get forced to be referenced with an url, even if it is a small image and would get inlined by default. |
 | original | | `boolean` | If true, the image will not get optimized (but still resized if the `sizes` property is present). |
-| type | | `string` | So you don't have to repeat yourself by setting the same sizes or other properties on many images, specify the image type which equals to one in your [global image config](#images.config.js). |
+| type | | `string` | So you don't have to repeat yourself by setting the same sizes or other properties on many images, specify the image type which equals to one in your [global image config](#imagesconfigjs). |
 | *anything else* | | `ImgHTMLAttributes` | All other properties will be directly passed to the `<img>` tag. So it would for example be possible to use native lazy-loading with `loading="lazy"`. |
 
 #### Svg
@@ -468,7 +468,7 @@ module.exports = {
 };
 ```
 
->> **Important**: When you make changes on this config file, you have to manually remove the `.next/cache` folder and restart next in order to see the changes. This issue will get resolved in the next canary version.
+> **Important**: When you make changes on this config file, you have to manually remove the `.next/cache` folder and restart next in order to see the changes. This issue will get resolved in the next canary version.
 
 This will convert **all images** to WebP. The images with the `thumbnail` type will be generated in two sizes (200, 400) but not converted to WebP. If `webp: false` would not be present, it would get inherited from the `default` key.
 
@@ -490,4 +490,6 @@ export default () => (
 
 ## License
 
-[MIT](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) © Cyril Wanner
+Licensed under the [MIT](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) license.
+
+© Copyright Cyril Wanner

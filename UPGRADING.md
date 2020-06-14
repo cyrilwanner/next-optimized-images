@@ -25,7 +25,7 @@ Please read the [readme](https://github.com/cyrilwanner/next-optimized-images/bl
 
 #### Configuration
 
-The configuration with the `next.config.js` has changed a lot. For example, all options for this plugin have to be specified within the `images` property and so many options have been renamed (to a shorter name). Please read the section within the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md) and adapt your config manually.
+The configuration with the `next.config.js` has changed a lot. For example, all options for this plugin have to be specified within the `images` property and so many options have been renamed (to a shorter name). Please read the section within the [readme](https://github.com/cyrilwanner/next-optimized-images/blob/canary/README.md#configuration) and adapt your config manually.
 
 The default output paths have also been changed from `/_next/static/images/` to `/_next/static/chunks/images/` so next automatically sets the correct caching headers.
 
