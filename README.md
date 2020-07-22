@@ -1,6 +1,7 @@
 # :sunrise: next-optimized-images [![npm version](https://badgen.net/npm/v/next-optimized-images)](https://www.npmjs.com/package/next-optimized-images) [![license](https://badgen.net/github/license/cyrilwanner/next-optimized-images)](https://github.com/cyrilwanner/next-optimized-images/blob/master/LICENSE) [![downloads](https://badgen.net/npm/dt/next-optimized-images)](https://www.npmjs.com/package/next-optimized-images)
 
-**Upgrading from v1 to v2? Please read the [UPGRADING.md](https://github.com/cyrilwanner/next-optimized-images/blob/master/UPGRADING.md).**
+**:bulb: Version 3 is coming!**
+It introduces a complete rewrite with many new features and bugfixes. If you want to help developing and testing the upcoming major version, please check out the [canary branch](https://github.com/cyrilwanner/next-optimized-images/tree/canary) for installation instructions and more information about the new features. ([RFC issue](https://github.com/cyrilwanner/next-optimized-images/issues/120))
 
 ---
 
