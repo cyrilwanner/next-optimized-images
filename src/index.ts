@@ -50,7 +50,9 @@ const getHandledFilesRegex = (handledImageTypes: Record<string, boolean>): RegEx
  * @param {object} nextComposePlugins - additional information when loaded with next-compose-plugins
  * @returns {object}
  */
-const withOptimizedImages = (nextConfig: { images?: { handleImages?: string[] }; assetPrefix?: string; webpack?: unknown } = {}) => {
+const withOptimizedImages = (
+  nextConfig: { images?: { handleImages?: string[] }; assetPrefix?: string; webpack?: unknown } = {},
+) => {
   return {
     ...nextConfig,
     webpack(config: WebpackConfig, options: Record<string, unknown>) {
@@ -73,7 +75,11 @@ const withOptimizedImages = (nextConfig: { images?: { handleImages?: string[] };
             loader: 'optimized-images-loader',
             options: {
               outputPath: 'static/chunks/images/',
-              publicPath: nextConfig.assetPrefix ? `${nextConfig.assetPrefix}${nextConfig.assetPrefix.endsWith('/') ? '' : '/'}_next/static/chunks/images/` : '/_next/static/chunks/images/',
+              publicPath: nextConfig.assetPrefix
+                ? `${nextConfig.assetPrefix}${
+                    nextConfig.assetPrefix.endsWith('/') ? '' : '/'
+                  }_next/static/chunks/images/`
+                : '/_next/static/chunks/images/',
               ...(nextConfig.images || {}),
             },
           },
