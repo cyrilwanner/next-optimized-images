@@ -198,7 +198,7 @@ export default () => (
 | :--- | :------: | :--: | :---------- |
 | src | **yes** | `string` | Source image. |
 | webp | | `boolean` | If true, the image will get converted to WebP. For browsers which don't support WebP, an image in the original format will be served. |
-| sizes | | `number[]` | Resize the image to the given width. If only one size is present, an `<img>` tag will get generated, otherwise a `<picture></picture>` tag for multiple sizes. |
+| sizes | | `number[]` | Resize the image to the given width. If only one size is present, an `<img>` tag will get generated, otherwise a `<picture>` tag for multiple sizes. |
 | densities | | `number[]` | **Default:** `[1]`<br>Specifies the supported pixel densities. For example, to generate images for retina displays, set this value to `[1, 2]`. |
 | breakpoints | | `number[]` | Specifies the breakpoints used to decide which image size to use (when the `size` property is present). If no breakpoints are specified, they will automatically be set to match the image sizes which is good for full-width images but result in too big images in other cases.<br>The breakpoints should have the same order as the image sizes.<br>Example for this query: ```sizes={[400, 800, 1200]} breakpoints={[600, 1000]}```<br>For widths 0px-600px the 400px image will be used, for 601px-1000px the 800px image will be used and for everything larger than 1001px, the 1200px image will be used. |
 | inline | | `boolean` | If true, the image will get forced to an inline data-uri (e.g. `data:image/png;base64,...`). |
