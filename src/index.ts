@@ -118,7 +118,8 @@ const withOptimizedImages = (
                 subRule.use.options.name
               ) {
                 if (
-                  String(subRule.issuer.test) === '/\\.(css|scss|sass)$/' &&
+                  (String(subRule.issuer.test) === '/\\.(css|scss|sass)$/' ||
+                    String(subRule.issuer) === '/\\.(css|scss|sass)$/') &&
                   subRule.use.options.name.startsWith('static/media/')
                 ) {
                   subRule.exclude.push(/\.(jpg|jpeg|png|svg|webp|gif|ico)$/);
