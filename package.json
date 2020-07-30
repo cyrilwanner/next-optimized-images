@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "file-loader": "^6.0.0",
-    "optimized-images-loader": "^0.2.4",
+    "optimized-images-loader": "^0.2.6",
     "react-optimized-image": "^0.3.3"
   },
   "devDependencies": {

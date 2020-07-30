@@ -433,7 +433,7 @@ Available options:
 | limit | `8192` | `number` | Images smaller than this number (in bytes) will get inlined with a data-uri. |
 | optimize | `true` | `boolean` | If this plugin should not optimized images, set this to `false`. You can still resize images, convert them to WebP and use other features in that case. |
 | cacheFolder | `'node_modules/optimized-images-loader/.cache'` | `string` | Images will be cached in this folder to avoid long build times. |
-| name | `'[name]-[contenthash].[ext]'` | `string` | File name of the images after they got processed. |
+| name | `'[name]-[contenthash].[ext]'` | `string` | File name of the images after they got processed. Additionally to the [default placeholders](https://github.com/webpack-contrib/file-loader#placeholders), `[width]` and `[height]` are also available. |
 | outputPath | `'static/chunks/images/'` | `string` | Images will be saved in this directory within the `.next` folder. |
 | publicPath | `'/_next/static/chunks/images/'` | `string` | The public path that should be used for image URLs. This can be used to serve the optimized image from a cloud storage service like S3. From version 2 on, next-optimized-images uses the [`assetPrefx` config of next.js](https://nextjs.org/docs/#cdn-support-with-asset-prefix) by default, but you can overwrite it with `publicPath` specially for images. |
 | mozjpeg | | `MozjpegOptions` | Specifies the options used to optimize jpeg images. All available options can be seen [here](https://www.npmjs.com/package/@wasm-codecs/mozjpeg#encodeoptions-encodeoptions). |
