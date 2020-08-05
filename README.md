@@ -130,9 +130,9 @@ export default () => (
  * Results in:
  *
  * <div>
- *   <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ *   <img src="/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
  *   <img src="data:image/png;base64,..." />
- *   <img src="/_next/static/images/my-icon-572812a2b04ed76f93f05bf57563c35d.svg" />
+ *   <img src="/_next/public/images/my-icon-572812a2b04ed76f93f05bf57563c35d.svg" />
  * </div>
  */
 ```
@@ -150,14 +150,14 @@ If you are using CSS modules, this package also detects images and optimized the
  * Results in:
  *
  * .Header {
- *   background-image: url('/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg');
+ *   background-image: url('/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg');
  * }
  */
 ```
 
 If the file is below the [limit for inlining images](#inlineimagelimit), the `require(...)` will return a base64 data-uri (`data:image/jpeg;base64,...`).
 
-Otherwise, `next-optimized-images` will copy your image into the static folder of next.js and the `require(...)` returns the path to your image in this case (`/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
+Otherwise, `next-optimized-images` will copy your image into the public folder of next.js and the `require(...)` returns the path to your image in this case (`/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg`).
 
 You can use both variants directly on an image in the `src` attribute or in your CSS file inside an `url()` value.
 
@@ -232,9 +232,9 @@ export default () => (
 /**
  * Results in:
  * <picture>
- *   <source srcset="/_next/static/images/my-image-d6816ecc28862cf6f725b29b1d6aab5e.jpg.webp" type="image/webp" />
- *   <source srcset="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" type="image/jpeg" />
- *   <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ *   <source srcset="/_next/public/images/my-image-d6816ecc28862cf6f725b29b1d6aab5e.jpg.webp" type="image/webp" />
+ *   <source srcset="/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" type="image/jpeg" />
+ *   <img src="/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
  * </picture>
  */
 ```
@@ -282,7 +282,7 @@ export default () => (
 /**
  * Results in:
  *
- * <img src="/_next/static/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
+ * <img src="/_next/public/images/my-image-5216de428a8e8bd01a4aa3673d2d1391.jpg" />
  *
  * Even if the image size is below the defined inlining limit.
  */
@@ -374,7 +374,7 @@ export default () => (
  *
  * <div>
  *  <img src="data:image/svg+xml,...">
- *  <img src="/_next/static/images/image-trace-85bf5c58ce3d91fbbf54aa03c44ab747.jpg">
+ *  <img src="/_next/public/images/image-trace-85bf5c58ce3d91fbbf54aa03c44ab747.jpg">
  * </div>
  */
 ```
@@ -511,7 +511,7 @@ Default: `8192`
 
 Smaller files will get inlined with a data-uri by [url-loader](https://www.npmjs.com/package/url-loader).
 This number defines the maximum file size (in bytes) for images to get inlined.
-If an image is bigger, it will get copied to the static folder of next.
+If an image is bigger, it will get copied to the public folder of next.
 
 Images will get optimized in both cases.
 
@@ -522,12 +522,12 @@ To completely disable image inlining, set this value to `-1`. You will then alwa
 Type: `string`<br>
 Default: `'images'`
 
-Folder name inside `/static/` in which the images will get copied to during build.
+Folder name inside `/public/` in which the images will get copied to during build.
 
 #### imagesPublicPath
 
 Type: `string`<br>
-Default: ``` `/_next/static/${imagesFolder}/` ```
+Default: ``` `/_next/public/${imagesFolder}/` ```
 
 The public path that should be used for image URLs. This can be used to serve
 the optimized image from a cloud storage service like S3.
@@ -537,7 +537,7 @@ From version 2 on, next-optimized-images uses the [`assetPrefx` config of next.j
 #### imagesOutputPath
 
 Type: `string`<br>
-Default: ``` `static/${imagesFolder}/` ```
+Default: ``` `publica/${imagesFolder}/` ```
 
 The output path that should be used for images. This can be used to have a custom output folder.
 
