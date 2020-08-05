@@ -5,15 +5,15 @@ describe('next-optimized-images/loaders/file-loader', () => {
   it('uses the default config', () => {
     const options = getFileLoaderOptions(getConfig({}), false);
 
-    expect(options.publicPath).toEqual('/_next/static/images/');
-    expect(options.outputPath).toEqual('static/images/');
+    expect(options.publicPath).toEqual('/_next/public/images/');
+    expect(options.outputPath).toEqual('public/images/');
     expect(options.name).toEqual('[name]-[hash].[ext]');
   });
 
   it('uses the correct directory on the server', () => {
     const options = getFileLoaderOptions(getConfig({}), true);
 
-    expect(options.outputPath).toEqual('../static/images/');
+    expect(options.outputPath).toEqual('../public/images/');
   });
 
   it('uses the assetPrefix config', () => {
@@ -21,9 +21,9 @@ describe('next-optimized-images/loaders/file-loader', () => {
     const options2 = getFileLoaderOptions(getConfig({ assetPrefix: 'https://cdn.com' }), false);
     const options3 = getFileLoaderOptions(getConfig({ assetPrefix: 'https://cdn.com/', imagesFolder: 'img-test' }), false);
 
-    expect(options1.publicPath).toEqual('https://cdn.com/_next/static/images/');
-    expect(options2.publicPath).toEqual('https://cdn.com/_next/static/images/');
-    expect(options3.publicPath).toEqual('https://cdn.com/_next/static/img-test/');
+    expect(options1.publicPath).toEqual('https://cdn.com/_next/public/images/');
+    expect(options2.publicPath).toEqual('https://cdn.com/_next/public/images/');
+    expect(options3.publicPath).toEqual('https://cdn.com/_next/public/img-test/');
   });
 
   it('overwrites assetPrefix config with imagesPublicPath', () => {
