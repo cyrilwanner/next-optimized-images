@@ -26,7 +26,7 @@
   "dependencies": {
     "file-loader": "^6.0.0",
     "optimized-images-loader": "^0.3.0",
-    "react-optimized-image": "^0.3.4"
+    "react-optimized-image": "^0.3.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
