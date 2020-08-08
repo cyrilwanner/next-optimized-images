@@ -10,7 +10,6 @@ This version is a complete rewrite and so has introduced breaking changes. If yo
 
 Compared to version 2, the following features are *currently missing* in the canary version:
 
-- Gif optimization (gif images can normally be used, they just don't get optimized)
 - `?trace` query param
 - `?sprite` query param
 
@@ -438,6 +437,7 @@ Available options:
 | publicPath | `'/_next/static/chunks/images/'` | `string` | The public path that should be used for image URLs. This can be used to serve the optimized image from a cloud storage service like S3. From version 2 on, next-optimized-images uses the [`assetPrefx` config of next.js](https://nextjs.org/docs/#cdn-support-with-asset-prefix) by default, but you can overwrite it with `publicPath` specially for images. |
 | mozjpeg | | `MozjpegOptions` | Specifies the options used to optimize jpeg images. All available options can be seen [here](https://www.npmjs.com/package/@wasm-codecs/mozjpeg#encodeoptions-encodeoptions). |
 | oxipng | | `OxipngOptions` | Specifies the options used to optimize png images. All available options can be seen [here](https://www.npmjs.com/package/@wasm-codecs/oxipng#encodeoptions-encodeoptions). |
+| gifsicle | | `GifsicleOptions` | Specifies the options used to optimize png images. All available options can be seen [here](https://www.npmjs.com/package/@wasm-codecs/gifsicle#encodeoptions-encodeoptions). |
 | webp | | `WebpOptions` | Specifies the options used to optimize webp images. All available options can be seen [here](https://sharp.pixelplumbing.com/api-output#webp). |
 | svgo | | `SvgoOptions` | Specifies the options used to optimize svg images. All available options can be seen [here](https://github.com/svg/svgo#what-it-can-do). |
 
