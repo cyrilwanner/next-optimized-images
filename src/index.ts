@@ -80,6 +80,7 @@ const withOptimizedImages = (
                     nextConfig.assetPrefix.endsWith('/') ? '' : '/'
                   }_next/static/chunks/images/`
                 : '/_next/static/chunks/images/',
+              includeStrategy: 'react',
               ...(nextConfig.images || {}),
             },
           },
