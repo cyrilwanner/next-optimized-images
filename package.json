@@ -27,7 +27,7 @@
     "@svgr/core": "^5.4.0",
     "file-loader": "^6.0.0",
     "optimized-images-loader": "^0.4.0",
-    "react-optimized-image": "^0.4.0"
+    "react-optimized-image": "^0.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
