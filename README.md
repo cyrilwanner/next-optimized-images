@@ -107,7 +107,7 @@ npm install imagemin-mozjpeg imagemin-optipng imagemin-gifsicle imagemin-svgo sv
 
 :warning: Please note that by default, images are only optimized for **production builds, not development builds**. However, this can get changed with the [`optimizeImagesInDev` config](#optimizeimagesindev).
 
-:bulb: Depending on your build/deployment setup, it is also possibile to install these as devDependencies. Just make sure that the packages are available when you build your project.
+:bulb: Depending on your build/deployment setup, it is also possible to install these as devDependencies. Just make sure that the packages are available when you build your project.
 
 :information_source: Since version 2.5, `ico` files are also optionally supported but need to be enabled in the [`handleImages` config](#handleimages).
 
