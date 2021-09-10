@@ -75,11 +75,12 @@ If you don't yet have a `.babelrc` file, create one with the following content:
 }
 ```
 
-If you are using typescript, add the following line to your `next-env.d.ts` file:
+If you are using TypeScript, create a new file `additional.d.ts` next to your `next-env.d.ts` (which is automatically generated), with the following content:
 
 ```typescript
 /// <reference types="optimized-images-loader" />
 ```
+and include it in your `tsconfig.json` by adding it to the `include` array.
 
 See the [configuration](#configuration) section for all available options.
 
