@@ -74,6 +74,21 @@ module.exports = withOptimizedImages({
 });
 ```
 
+Also you probably will have to [disable Next's static imports](https://nextjs.org/docs/basic-features/image-optimization#disable-static-imports) to make the plugin work, in that case the config file would look like this
+
+```javascript
+// next.config.js
+const withOptimizedImages = require('next-optimized-images');
+module.exports = withOptimizedImages({
+  /* config for next-optimized-images */
+  
+  images: {
+    disableStaticImages: true
+  }
+  // your other config for other plugins or the general next.js here...
+});
+```
+
 ## Optimization Packages
 
 Starting from version 2, you have to install the optimization packages you need in your project in addition to this plugin. `next-optimized-images` then detects all the supported packages and uses them.
