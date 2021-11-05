@@ -50,6 +50,11 @@ module.exports = withPlugins([
     /* config for next-optimized-images */
   }],
 
+  // tell Next.js that you are using a custom loader
+  images: {
+    loader: 'custom'
+  }
+  
   // your other plugins here
 
 ]);
